@@ -1,0 +1,42 @@
+.root{
+    -fx-background-color: lightgray;
+    -fx-font-family: Vendana;
+}
+
+.button:hover {
+    -fx-scale-y: 1.1;
+    -fx-scale-x: 1.1;
+}
+
+.button:pressed {
+    -fx-scale-y: 0.9;
+    -fx-scale-x: 0.9;
+}
+
+.Pane{
+    -fx-background-color: lightblue;
+    -fx-border-color: black;
+    -fx-border-width: 2px;
+    -fx-font-family: Vendana;
+    -fx-font-size: 30px;
+}
+
+.text{
+    -fx-alignment: center;
+}
+
+.paramsLabel{
+    -fx-font-family: Vendana;
+    -fx-font-size: 20px;
+}
+
+.paramsTitle{
+    -fx-font-family: Vendana;
+    -fx-font-size: 35px;
+    -fx-font-weight: 900;
+}
+
+.params{
+    -fx-font-family: Vendana;
+    -fx-font-size: 15px;
+}
