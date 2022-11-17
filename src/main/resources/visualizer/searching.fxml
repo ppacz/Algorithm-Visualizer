@@ -14,7 +14,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visualizer.SearchingController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="787.5" prefWidth="1400.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visualizer.SearchingController">
    <children>
       <AnchorPane maxHeight="120.0" prefHeight="120.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -35,7 +35,7 @@
             </AnchorPane>
             <AnchorPane prefHeight="120.0" prefWidth="200.0" styleClass="Pane" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Button disable="true" mnemonicParsing="false" text="Spustit" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />
+                  <Button mnemonicParsing="false" onAction="#search" text="Spustit" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />
                </children>
             </AnchorPane>
             <AnchorPane layoutX="385.0" layoutY="29.0" prefHeight="120.0" prefWidth="300.0" styleClass="Pane" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -56,30 +56,30 @@
             <Label layoutX="34.0" layoutY="62.0" styleClass="paramsLabel" text="Prohledáno" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="70.0" />
             <Label layoutX="24.0" layoutY="121.0" styleClass="paramsLabel" text="Porovnává se" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="110.0" />
             <Label layoutX="16.0" layoutY="192.0" styleClass="paramsLabel" text="Základní" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="190.0" />
-            <RadioButton layoutX="62.0" layoutY="386.0" mnemonicParsing="false" styleClass="paramsLabel" text="Binární Vyhledávání" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="320.0">
+            <RadioButton fx:id="binarAlgo" layoutX="62.0" layoutY="386.0" mnemonicParsing="false" styleClass="paramsLabel" text="Binární Vyhledávání" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="320.0">
                <toggleGroup>
                   <ToggleGroup fx:id="algo" />
                </toggleGroup>
             </RadioButton>
-            <RadioButton layoutX="51.0" layoutY="432.0" mnemonicParsing="false" styleClass="paramsLabel" text="Linearní vyhledávání" toggleGroup="$algo" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="360.0" />
+            <RadioButton fx:id="linearAlgo" layoutX="51.0" layoutY="432.0" mnemonicParsing="false" styleClass="paramsLabel" text="Linearní vyhledávání" toggleGroup="$algo" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="360.0" />
             <Label layoutX="32.0" layoutY="7.0" styleClass="paramsTitle" text="Výběr barev" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
             <Label layoutX="32.0" layoutY="224.0" styleClass="paramsTitle" text="Výběr algoritmů" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="240.0" />
-            <ColorPicker layoutX="175.0" layoutY="59.0" maxWidth="110.0" styleClass="params" AnchorPane.leftAnchor="175.0" AnchorPane.topAnchor="70.0">
+            <ColorPicker fx:id="searchedColor" layoutX="175.0" layoutY="59.0" maxWidth="110.0" styleClass="params" AnchorPane.leftAnchor="175.0" AnchorPane.topAnchor="70.0">
                <value>
                   <Color red="1.0" />
                </value>
             </ColorPicker>
-            <ColorPicker layoutX="175.0" layoutY="282.0" maxWidth="110.0" styleClass="params" AnchorPane.leftAnchor="175.0" AnchorPane.topAnchor="150.0">
+            <ColorPicker fx:id="foundColor" layoutX="175.0" layoutY="282.0" maxWidth="110.0" styleClass="params" AnchorPane.leftAnchor="175.0" AnchorPane.topAnchor="150.0">
                <value>
                   <Color red="0.01666666753590107" green="1.0" />
                </value>
             </ColorPicker>
-            <ColorPicker layoutX="175.0" layoutY="179.0" maxWidth="110.0" styleClass="params" AnchorPane.leftAnchor="175.0" AnchorPane.topAnchor="110.0">
+            <ColorPicker fx:id="comparingColor" layoutX="175.0" layoutY="179.0" maxWidth="110.0" styleClass="params" AnchorPane.leftAnchor="175.0" AnchorPane.topAnchor="110.0">
                <value>
                   <Color red="1.0" green="0.7666666507720947" />
                </value>
             </ColorPicker>
-            <ColorPicker layoutX="175.0" layoutY="429.0" maxWidth="110.0" styleClass="params" AnchorPane.leftAnchor="175.0" AnchorPane.topAnchor="190.0">
+            <ColorPicker fx:id="basicColor" layoutX="175.0" layoutY="429.0" maxWidth="110.0" styleClass="params" AnchorPane.leftAnchor="175.0" AnchorPane.topAnchor="190.0">
                <value>
                   <Color />
                </value>

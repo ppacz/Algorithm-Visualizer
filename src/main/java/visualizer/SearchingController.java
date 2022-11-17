@@ -9,11 +9,11 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Rectangle;
+import visualizer.algorithms.searching.LinearSearch;
 
 public class SearchingController implements Initializable {
 
@@ -61,7 +61,13 @@ public class SearchingController implements Initializable {
     }
     
     private void clearStage(){
-        ObservableList<Node> list = this.searchingPane.getChildren();
+        ObservableList<Rectangle> list = (ObservableList) this.searchingPane.getChildren();
         list.clear();
+    }
+
+    @FXML
+    private void search(){
+        LinearSearch search = new LinearSearch(20, (ObservableList) this.searchingPane.getChildren(), 500);
+        search.start();
     }
 }
