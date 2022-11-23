@@ -5,20 +5,15 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import visualizer.algorithms.Algorithm;
 
-public class LinearSearch extends Algorithm{
-    private ObservableList<Rectangle> list;
-    private float value;
+public class LinearSearch extends Algorithm implements Runnable{
 
-
-    public LinearSearch(int sleep, ObservableList<Rectangle> list, float value) {
-        super(sleep);
-        this.list = list;
-        this.value = value;
+    public LinearSearch(int sleep, ObservableList<Rectangle> list, int value) {
+        super(sleep, list, value);
     }
 
     @Override
     public void run(){
-        for (Rectangle rectangle : list) {
+        for (Rectangle rectangle : this.list) {
             if(rectangle.getHeight()==value){
                 rectangle.setFill(Color.BEIGE);
                 return;
@@ -31,5 +26,4 @@ public class LinearSearch extends Algorithm{
             }
         }
     }
-    
 }

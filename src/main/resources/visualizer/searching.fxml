@@ -56,12 +56,12 @@
             <Label layoutX="34.0" layoutY="62.0" styleClass="paramsLabel" text="Prohledáno" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="70.0" />
             <Label layoutX="24.0" layoutY="121.0" styleClass="paramsLabel" text="Porovnává se" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="110.0" />
             <Label layoutX="16.0" layoutY="192.0" styleClass="paramsLabel" text="Základní" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="190.0" />
-            <RadioButton fx:id="binarAlgo" layoutX="62.0" layoutY="386.0" mnemonicParsing="false" styleClass="paramsLabel" text="Binární Vyhledávání" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="320.0">
+            <RadioButton fx:id="binary" layoutX="62.0" layoutY="386.0" mnemonicParsing="false" styleClass="paramsLabel" text="Binární Vyhledávání" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="320.0">
                <toggleGroup>
                   <ToggleGroup fx:id="algo" />
                </toggleGroup>
             </RadioButton>
-            <RadioButton fx:id="linearAlgo" layoutX="51.0" layoutY="432.0" mnemonicParsing="false" styleClass="paramsLabel" text="Linearní vyhledávání" toggleGroup="$algo" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="360.0" />
+            <RadioButton fx:id="linear" layoutX="51.0" layoutY="432.0" mnemonicParsing="false" styleClass="paramsLabel" text="Linearní vyhledávání" toggleGroup="$algo" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="360.0" />
             <Label layoutX="32.0" layoutY="7.0" styleClass="paramsTitle" text="Výběr barev" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
             <Label layoutX="32.0" layoutY="224.0" styleClass="paramsTitle" text="Výběr algoritmů" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="240.0" />
             <ColorPicker fx:id="searchedColor" layoutX="175.0" layoutY="59.0" maxWidth="110.0" styleClass="params" AnchorPane.leftAnchor="175.0" AnchorPane.topAnchor="70.0">
