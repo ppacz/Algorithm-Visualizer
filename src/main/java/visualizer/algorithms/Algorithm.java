@@ -6,10 +6,10 @@ import javafx.scene.shape.Rectangle;
 public abstract class Algorithm{
     protected ObservableList<Rectangle> list;
     protected int value;
-    protected int sleepTime;
+    protected int sleep;
     
     public Algorithm(int sleep, ObservableList<Rectangle> list, int value){
-        this.sleepTime = sleep;
+        this.sleep = sleep;
         this.list = list;
         this.value = value;
     }

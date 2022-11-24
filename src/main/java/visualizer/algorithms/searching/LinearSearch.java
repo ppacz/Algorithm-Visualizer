@@ -15,13 +15,13 @@ public class LinearSearch extends Algorithm implements Runnable{
     public void run(){
         for (Rectangle rectangle : this.list) {
             if(rectangle.getHeight()==value){
-                rectangle.setFill(Color.BEIGE);
+                rectangle.setFill(Color.GREEN);
                 return;
             }else{
                 rectangle.setFill(Color.RED);
             }
             try {
-                Thread.sleep(20);
+                Thread.sleep(this.sleep);
             } catch (InterruptedException e) {
             }
         }

@@ -86,7 +86,7 @@ public class SearchingController implements Initializable {
     // TODO findout how to send back message when done
     @FXML
     private void search(){
-        Runnable search = this.getAlgorithm(20, (ObservableList) this.searchingPane.getChildren(), 500);
+        Runnable search = this.getAlgorithm(300, (ObservableList) this.searchingPane.getChildren(), 84);
         if(search!=null){
             Thread thread = new Thread(search);
             thread.setName("Algorithm thread");
@@ -103,7 +103,7 @@ public class SearchingController implements Initializable {
         }
         Alert alert = new Alert(AlertType.WARNING);
         alert.setHeaderText("Nastala chyba");
-        alert.setContentText("Nebyl vybranu žádný algoritmus");
+        alert.setContentText("Nebyl vybrán žádný algoritmus");
         alert.show();
         return null;         
     }
