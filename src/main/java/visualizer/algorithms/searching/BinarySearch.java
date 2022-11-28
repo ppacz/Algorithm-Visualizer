@@ -1,7 +1,5 @@
 package visualizer.algorithms.searching;
 
-import java.net.HttpURLConnection;
-
 import javafx.collections.ObservableList;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -9,8 +7,11 @@ import visualizer.algorithms.Algorithm;
 
 public class BinarySearch extends Algorithm implements Runnable {
     
+    private int value;
+
     public BinarySearch(int sleep, ObservableList<Rectangle> list, int value) {
-        super(sleep, list, value);
+        super(sleep, list);
+        this.value = value;
     }
 
     @Override

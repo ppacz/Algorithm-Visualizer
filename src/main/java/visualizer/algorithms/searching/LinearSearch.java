@@ -6,9 +6,11 @@ import javafx.scene.shape.Rectangle;
 import visualizer.algorithms.Algorithm;
 
 public class LinearSearch extends Algorithm implements Runnable{
+    private int value;
 
     public LinearSearch(int sleep, ObservableList<Rectangle> list, int value) {
-        super(sleep, list, value);
+        super(sleep, list);
+        this.value = value;
     }
 
     @Override

@@ -14,6 +14,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Rectangle;
+import visualizer.algorithms.SearchingOrder;
+import visualizer.algorithms.sorting.BubbleSort;
 
 public class SortingController implements Initializable {
     @FXML
@@ -42,6 +44,10 @@ public class SortingController implements Initializable {
         
     }
 
+    /*
+     * Sorting will need to be done by untilizing tasks, workers and services
+     */
+
     @FXML
     protected void generate(){
         if(generated) clearStage();
@@ -62,5 +68,21 @@ public class SortingController implements Initializable {
     private void clearStage(){
         ObservableList<Rectangle> list = (ObservableList)this.sortingPane.getChildren();
         list.clear();
+    }
+
+    // TODO findout how to send back message when done
+    @FXML
+    private void search(){
+        Runnable search = this.getAlgorithm(50, (ObservableList) this.sortingPane.getChildren(), SearchingOrder.ASC);
+        if(search!=null){
+            Thread thread = new Thread(search);
+            thread.setName("Algorithm thread");
+            thread.start();
+        }
+    }
+
+
+    private Runnable getAlgorithm(int sleep, ObservableList<Rectangle> list, SearchingOrder order){
+        return new BubbleSort(sleep, list, order);         
     }
 }

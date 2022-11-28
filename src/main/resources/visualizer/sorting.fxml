@@ -35,7 +35,7 @@
             </AnchorPane>
             <AnchorPane prefHeight="120.0" prefWidth="200.0" styleClass="Pane" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Button disable="true" mnemonicParsing="false" text="Spustit" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />
+                  <Button mnemonicParsing="false" onAction="#search" text="Spustit" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />
                </children>
             </AnchorPane>
             <AnchorPane layoutX="385.0" layoutY="29.0" prefHeight="120.0" prefWidth="300.0" styleClass="Pane" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
