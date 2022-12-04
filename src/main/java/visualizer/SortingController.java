@@ -9,12 +9,15 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Rectangle;
-import visualizer.algorithms.SearchingOrder;
+import visualizer.algorithms.SortingOrder;
+import visualizer.algorithms.Speed;
 import visualizer.algorithms.sorting.BubbleSort;
 
 public class SortingController implements Initializable {
@@ -23,11 +26,17 @@ public class SortingController implements Initializable {
 
     @FXML
     private HBox sortingPane;
+
+    @FXML
+    private Slider speedSlider;
     
     @FXML
     private Slider numberOfValuesSlider;
+
+    @FXML
+    private AnchorPane mainPane;
+    
     private int numberOfValues;
-    private int minHeight = 10;
     private boolean generated = false;
 
     @Override
@@ -41,6 +50,15 @@ public class SortingController implements Initializable {
             }
             
         });
+        /*
+         * TODO make thread killer
+         * TODO make quality of life changes
+         */
+        mainPane.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
+            if(key.getCode()==KeyCode.ENTER) {
+                System.out.println("You pressed enter");
+            }
+      });
         
     }
 
@@ -56,12 +74,11 @@ public class SortingController implements Initializable {
         int maxWidth = (int) (sortingPane.getWidth()/amount*.9);
         double padding = (sortingPane.getWidth()/amount*.05)/2;
         this.sortingPane.setSpacing(padding);
-        Random random = new Random();
-        for(int i=0; i<amount; i++){
-            int randomNum = random.nextInt((maxHeight - minHeight) + 1) + minHeight;
-            Rectangle rect = new Rectangle(maxWidth, randomNum);
+        for(int i=1; i<amount+1; i++){
+            Rectangle rect = new Rectangle(maxWidth, (int) (i*(maxHeight-50)/amount)+50);
             this.sortingPane.getChildren().add(rect);
         }
+        this.shuffle();
         generated = true;
     }
     
@@ -73,7 +90,21 @@ public class SortingController implements Initializable {
     // TODO findout how to send back message when done
     @FXML
     private void search(){
-        Runnable search = this.getAlgorithm(50, (ObservableList) this.sortingPane.getChildren(), SearchingOrder.ASC);
+        Speed algoSpeed;
+        switch ((int) speedSlider.getValue()) {
+            case 1:
+                algoSpeed = Speed.Slow;
+                break;
+            case 2:
+                algoSpeed = Speed.Normal;
+                break;
+            case 3:
+                algoSpeed = Speed.Fast;
+                break;
+            default:
+                algoSpeed = Speed.Slow;
+            }
+        Runnable search = this.getAlgorithm(algoSpeed, (ObservableList) this.sortingPane.getChildren(), SortingOrder.ASC);
         if(search!=null){
             Thread thread = new Thread(search);
             thread.setName("Algorithm thread");
@@ -82,7 +113,19 @@ public class SortingController implements Initializable {
     }
 
 
-    private Runnable getAlgorithm(int sleep, ObservableList<Rectangle> list, SearchingOrder order){
+    private Runnable getAlgorithm(Speed sleep, ObservableList<Rectangle> list, SortingOrder order){
         return new BubbleSort(sleep, list, order);         
+    }
+
+    private void shuffle(){
+        Random random = new Random();
+        ObservableList<Rectangle> list = (ObservableList)this.sortingPane.getChildren();
+        for(int i = 0; i < list.size() - 1; i++){
+            int randomIndexToSwap = random.nextInt(list.size());
+			Double rect1 = list.get(randomIndexToSwap).getHeight();
+            Double rect2 = list.get(i).getHeight();
+			list.set(randomIndexToSwap, new Rectangle(list.get(0).getWidth(), rect2));
+			list.set(i, new Rectangle(list.get(0).getWidth(), rect1));
+        }
     }
 }

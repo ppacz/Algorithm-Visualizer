@@ -4,11 +4,12 @@ import javafx.collections.ObservableList;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import visualizer.algorithms.Algorithm;
+import visualizer.algorithms.Speed;
 
 public class LinearSearch extends Algorithm implements Runnable{
     private int value;
 
-    public LinearSearch(int sleep, ObservableList<Rectangle> list, int value) {
+    public LinearSearch(Speed sleep, ObservableList<Rectangle> list, int value) {
         super(sleep, list);
         this.value = value;
     }

@@ -1,6 +1,7 @@
 package visualizer;
 
 import java.net.URL;
+import java.util.Collections;
 import java.util.Random;
 import java.util.ResourceBundle;
 
@@ -14,8 +15,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Slider;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Rectangle;
+import visualizer.algorithms.Speed;
 import visualizer.algorithms.searching.BinarySearch;
 import visualizer.algorithms.searching.LinearSearch;
 
@@ -33,6 +38,12 @@ public class SearchingController implements Initializable {
     @FXML
     private RadioButton linear, binary;
 
+    @FXML
+    private Slider speedSlider;
+
+    @FXML
+    private AnchorPane mainPane;
+
     private boolean needToBeSorted = false;
     private int numberOfValues;
     private int minHeight = 10;
@@ -48,6 +59,15 @@ public class SearchingController implements Initializable {
                 numberOfValuesText.setText("Počet hodnot: " + numberOfValues);
             }
         });
+        /*
+         * TODO make thread killer
+         * TODO make quality of life changes
+         */
+        mainPane.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
+            if(key.getCode()==KeyCode.ENTER) {
+                System.out.println("You pressed enter");
+            }
+      });
     }
 
     @FXML
@@ -59,7 +79,7 @@ public class SearchingController implements Initializable {
         double padding = (searchingPane.getWidth()/amount*.05)/2;
         this.searchingPane.setSpacing(padding);
         Random random = new Random();
-
+        
         if(binary.isSelected()){
             for(int i=1; i<amount+1; i++){
                 Rectangle rect = new Rectangle(maxWidth, (int) (i*(maxHeight-50)/amount)+50);
@@ -74,6 +94,7 @@ public class SearchingController implements Initializable {
             }
             needToBeSorted = false;
         }
+        Collections.shuffle(this.searchingPane.getChildren());
         generated = true;
     }
     
@@ -86,7 +107,21 @@ public class SearchingController implements Initializable {
     // TODO findout how to send back message when done
     @FXML
     private void search(){
-        Runnable search = this.getAlgorithm(300, (ObservableList) this.searchingPane.getChildren(), 84);
+        Speed algoSpeed;
+        switch ((int) speedSlider.getValue()) {
+            case 1:
+                algoSpeed = Speed.Slow;
+                break;
+            case 2:
+                algoSpeed = Speed.Normal;
+                break;
+            case 3:
+                algoSpeed = Speed.Fast;
+                break;
+            default:
+                algoSpeed = Speed.Slow;
+            }
+        Runnable search = this.getAlgorithm(algoSpeed, (ObservableList) this.searchingPane.getChildren(), 84);
         if(search!=null){
             Thread thread = new Thread(search);
             thread.setName("Algorithm thread");
@@ -95,7 +130,7 @@ public class SearchingController implements Initializable {
     }
 
 
-    private Runnable getAlgorithm(int sleep, ObservableList<Rectangle> list, int value){
+    private Runnable getAlgorithm(Speed sleep, ObservableList<Rectangle> list, int value){
         if(linear.isSelected()){
             return new LinearSearch(sleep, list, value);
         }else if(binary.isSelected() && needToBeSorted){

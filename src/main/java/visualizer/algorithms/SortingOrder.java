@@ -1,6 +1,6 @@
 package visualizer.algorithms;
 
-public enum SearchingOrder {
+public enum SortingOrder {
     ASC,
     DESC,
 }

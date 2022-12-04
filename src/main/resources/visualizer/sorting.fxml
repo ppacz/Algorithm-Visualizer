@@ -14,7 +14,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="787.5" prefWidth="1400.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visualizer.SortingController">
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="787.5" prefWidth="1400.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visualizer.SortingController">
    <children>
       <AnchorPane maxHeight="120.0" prefHeight="120.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -40,12 +40,12 @@
             </AnchorPane>
             <AnchorPane layoutX="385.0" layoutY="29.0" prefHeight="120.0" prefWidth="300.0" styleClass="Pane" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Label alignment="CENTER" prefHeight="80.0" prefWidth="300.0" styleClass="text" text="Doba mezi kroky (ms)" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <Label alignment="CENTER" layoutX="4.0" layoutY="19.0" prefHeight="51.0" prefWidth="296.0" styleClass="text" text="Rychlost vizualizace" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="0.0">
                      <font>
                         <Font name="Verdana" size="25.0" />
                      </font>
                   </Label>
-                  <Slider layoutX="62.0" layoutY="82.0" majorTickUnit="100.0" max="300.0" min="50.0" prefHeight="50.0" prefWidth="179.0" value="100.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
+                  <Slider fx:id="speedSlider" blockIncrement="1.0" layoutX="26.0" layoutY="46.0" majorTickUnit="1.0" max="3.0" min="1.0" minorTickCount="1" prefHeight="40.0" prefWidth="256.0" showTickLabels="true" snapToTicks="true" value="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="26.0" AnchorPane.rightAnchor="26.0" />
                </children>
             </AnchorPane>
          </children>
