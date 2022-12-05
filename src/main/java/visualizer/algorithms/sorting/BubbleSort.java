@@ -6,17 +6,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import visualizer.SortingController;
 import visualizer.algorithms.Algorithm;
-import visualizer.algorithms.SortingOrder;
 import visualizer.algorithms.Speed;
 
 public class BubbleSort extends Algorithm implements Runnable{
 
-    private SortingOrder order;
     private int j;
 
-    public BubbleSort(Speed sleep, ObservableList<Rectangle> list, SortingOrder order) {
+    public BubbleSort(Speed sleep, ObservableList<Rectangle> list) {
         super(sleep, list);
-        this.order = order;
     }
 
     @Override

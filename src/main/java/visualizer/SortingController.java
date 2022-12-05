@@ -9,16 +9,19 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.Slider;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Rectangle;
-import visualizer.algorithms.SortingOrder;
 import visualizer.algorithms.Speed;
 import visualizer.algorithms.sorting.BubbleSort;
+import visualizer.algorithms.sorting.SelectionSort;
 
 public class SortingController implements Initializable {
     @FXML
@@ -35,6 +38,9 @@ public class SortingController implements Initializable {
 
     @FXML
     private AnchorPane mainPane;
+    
+    @FXML
+    private RadioButton bubble, linear, selection, marge, quick;
     
     private int numberOfValues;
     private boolean generated = false;
@@ -106,7 +112,7 @@ public class SortingController implements Initializable {
             default:
                 algoSpeed = Speed.Slow;
             }
-        Runnable search = this.getAlgorithm(algoSpeed, (ObservableList) this.sortingPane.getChildren(), SortingOrder.ASC);
+        Runnable search = this.getAlgorithm(algoSpeed, (ObservableList) this.sortingPane.getChildren());
         if(search!=null){
             SortingController.isRunning = true;
             Thread thread = new Thread(search);
@@ -116,8 +122,17 @@ public class SortingController implements Initializable {
     }
 
 
-    private Runnable getAlgorithm(Speed sleep, ObservableList<Rectangle> list, SortingOrder order){
-        return new BubbleSort(sleep, list, order);         
+    private Runnable getAlgorithm(Speed sleep, ObservableList<Rectangle> list){
+        if(bubble.isSelected()){
+            return new BubbleSort(sleep, list);
+        }else if(selection.isSelected()){
+            return new SelectionSort(sleep, list);
+        }
+        Alert alert = new Alert(AlertType.WARNING);
+        alert.setHeaderText("Nastala chyba");
+        alert.setContentText("Nebyl vybrán žádný algoritmus");
+        alert.show();
+        return null;         
     }
 
     private void shuffle(){
