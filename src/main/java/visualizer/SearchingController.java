@@ -48,6 +48,7 @@ public class SearchingController implements Initializable {
     private int numberOfValues;
     private int minHeight = 10;
     private boolean generated = false;
+    public static boolean isRunning;
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -64,8 +65,9 @@ public class SearchingController implements Initializable {
          * TODO make quality of life changes
          */
         mainPane.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
-            if(key.getCode()==KeyCode.ENTER) {
-                System.out.println("You pressed enter");
+            if(key.getCode()==KeyCode.R) {
+                if(SearchingController.isRunning) SearchingController.isRunning = false;
+                else System.out.println("No algorithm running");
             }
       });
     }
@@ -123,9 +125,11 @@ public class SearchingController implements Initializable {
             }
         Runnable search = this.getAlgorithm(algoSpeed, (ObservableList) this.searchingPane.getChildren(), 84);
         if(search!=null){
+            SearchingController.isRunning = true;
             Thread thread = new Thread(search);
             thread.setName("Algorithm thread");
             thread.start();
+            
         }
     }
 

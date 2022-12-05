@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import visualizer.SortingController;
 import visualizer.algorithms.Algorithm;
 import visualizer.algorithms.SortingOrder;
 import visualizer.algorithms.Speed;
@@ -23,6 +24,7 @@ public class BubbleSort extends Algorithm implements Runnable{
         int arrLength = list.size();
         for(int i = 0; i<=arrLength-1; i++){
             for(j = 0; j<arrLength-i-1; j++ ){
+                if(SortingController.isRunning == false) return;
                 Double rect1 = list.get(j).getHeight();
                 Double rect2 = list.get(j+1).getHeight();
                 colorElements(new int[] {j, j+1}, Color.YELLOW);
@@ -44,17 +46,7 @@ public class BubbleSort extends Algorithm implements Runnable{
             }
             colorElements(new int[] {list.size()-i-1}, Color.GREEN);
         }
+        SortingController.isRunning = false;
     }
 
-    private void colorElements(int[] elements, Color color){
-        for (int i : elements) {
-            list.get(i).setFill(color);
-        }
-    }
-
-    private void colorElements(int start, int end, Color color){
-        for(int i = start; i < end; i++) {
-            list.get(i).setFill(color);
-        }
-    }
 }

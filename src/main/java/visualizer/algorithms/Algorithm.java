@@ -1,6 +1,7 @@
 package visualizer.algorithms;
 
 import javafx.collections.ObservableList;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public abstract class Algorithm{
@@ -21,5 +22,18 @@ public abstract class Algorithm{
                 break;
         }
         this.list = list;
+    }
+
+    
+    protected void colorElements(int[] elements, Color color){
+        for (int i : elements) {
+            list.get(i).setFill(color);
+        }
+    }
+
+    protected void colorElements(int start, int end, Color color){
+        for(int i = start; i < end; i++) {
+            list.get(i).setFill(color);
+        }
     }
 }
