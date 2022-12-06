@@ -21,6 +21,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.shape.Rectangle;
 import visualizer.algorithms.Speed;
 import visualizer.algorithms.sorting.BubbleSort;
+import visualizer.algorithms.sorting.QuickSort;
 import visualizer.algorithms.sorting.SelectionSort;
 
 public class SortingController implements Initializable {
@@ -127,6 +128,8 @@ public class SortingController implements Initializable {
             return new BubbleSort(sleep, list);
         }else if(selection.isSelected()){
             return new SelectionSort(sleep, list);
+        }else if(quick.isSelected()){
+            return new QuickSort(sleep, list);
         }
         Alert alert = new Alert(AlertType.WARNING);
         alert.setHeaderText("Nastala chyba");

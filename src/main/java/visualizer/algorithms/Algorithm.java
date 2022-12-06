@@ -7,6 +7,7 @@ import javafx.scene.shape.Rectangle;
 public abstract class Algorithm{
     protected ObservableList<Rectangle> list;
     protected int sleep;
+    protected double width;
     
     public Algorithm(Speed sleep, ObservableList<Rectangle> list){
         switch (sleep) {
@@ -22,6 +23,7 @@ public abstract class Algorithm{
                 break;
         }
         this.list = list;
+        this.width = this.list.get(0).getWidth();
     }
 
     
@@ -34,6 +36,13 @@ public abstract class Algorithm{
     protected void colorElements(int start, int end, Color color){
         for(int i = start; i < end; i++) {
             list.get(i).setFill(color);
+        }
+    }
+
+    protected void sleep(int time){
+        try {
+            Thread.sleep(time);
+        } catch (InterruptedException e) {
         }
     }
 }
