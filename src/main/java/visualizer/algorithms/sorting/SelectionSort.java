@@ -24,8 +24,7 @@ public class SelectionSort extends Algorithm implements Runnable {
             min = i;
             for(int j = i + 1; j <this.list.size(); j++){
                 if(SortingController.isRunning==false) return;
-                colorElements(0, i, Color.GREEN);
-                colorElements(i, j, Color.BLACK);
+                colorElements(i, this.list.size(), Color.BLACK);
                 colorElements(new int[] {j, min}, Color.YELLOW);
                 if(list.get(j).getHeight()<list.get(min).getHeight()){
                     min = j;
@@ -40,14 +39,11 @@ public class SelectionSort extends Algorithm implements Runnable {
                 list.set(min, new Rectangle(list.get(0).getWidth(),list.get(i).getHeight()));
                 list.set(i, new Rectangle(list.get(0).getWidth(),temp));
             });
-            try {
-                Thread.sleep(this.sleep/10);
-            } catch (InterruptedException e) {
-            }
-            colorElements(i, list.size(), Color.BLACK);
+            sleep(this.sleep/10);
+            colorElements(i, this.list.size(), Color.BLACK);
         }
-        colorElements(0, list.size(), Color.GREEN);
         SortingController.isRunning = false;
+        finishColoring();
     }
     
 }

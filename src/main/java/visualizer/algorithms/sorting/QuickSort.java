@@ -24,6 +24,7 @@ public class QuickSort extends Algorithm implements Runnable{
         SortingController.isRunning = true;
         this.quickSort(0, this.list.size()-1);
         SortingController.isRunning = false;
+        finishColoring();
         Platform.runLater(()->{
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Algoritmus ukončen");
@@ -36,11 +37,11 @@ public class QuickSort extends Algorithm implements Runnable{
 
         if(end<=start) return;
         int pivot = this.partition(start, end);
-        this.sleep(this.sleep);
+        this.sleep(this.sleep/10);
         quickSort(start, pivot-1);
-        this.sleep(this.sleep/2);
+        this.sleep(this.sleep/10);
         quickSort(pivot + 1, end);
-        this.sleep(this.sleep/2);
+        this.sleep(this.sleep/10);
     }
 
     private int partition(int start,int end){
@@ -57,28 +58,21 @@ public class QuickSort extends Algorithm implements Runnable{
                 Platform.runLater(()->{
                     double temp = this.list.get(i).getHeight();
                     this.list.set(i, new Rectangle(this.width, this.list.get(j).getHeight()));
-                    this.list.set(j, new Rectangle(this.width, temp));
+                    this.list.set(j, new Rectangle(this.width, temp, Color.YELLOW));
                 });
             }
             // zde se musí Algorithm thread uspat, aby se stihl provést render a variable swap který je prováděn v JavaFx thread
-            this.sleep(this.sleep/2);
-            list.get(j).setFill(Color.BLACK);
+            this.sleep(this.sleep);
+            colorElements(new int[] {j}, Color.BLACK);
         }
         i++;
-        list.get(end).setFill(Color.BLACK);
-        if(start-end<2){
-            Platform.runLater(()->{
-                double temp = this.list.get(i).getHeight();
-                this.list.set(i, new Rectangle(this.width, pivot, Color.GREEN));
-                this.list.set(end, new Rectangle(this.width, temp, Color.GREEN));
-            });
-        }else{
-            Platform.runLater(()->{
-                double temp = this.list.get(i).getHeight();
-                this.list.set(i, new Rectangle(this.width, pivot, Color.GREEN));
-                this.list.set(end, new Rectangle(this.width, temp));
-            });
-        }
+        colorElements(0, this.list.size(), Color.BLACK);
+
+        Platform.runLater(()->{
+            double temp = this.list.get(i).getHeight();
+            this.list.set(i, new Rectangle(this.width, pivot));
+            this.list.set(end, new Rectangle(this.width, temp));
+        });
         return i;
     }
 }

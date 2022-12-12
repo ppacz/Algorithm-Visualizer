@@ -39,11 +39,11 @@ public class BubbleSort extends Algorithm implements Runnable{
                     Thread.sleep(this.sleep/2);
                 } catch (InterruptedException e) {
                 }
-                colorElements(0, j+1, Color.BLACK);
+                colorElements(new int[] {j,j+1}, Color.BLACK);
             }
-            colorElements(new int[] {list.size()-i-1}, Color.GREEN);
         }
         SortingController.isRunning = false;
+        finishColoring();
     }
 
 }
