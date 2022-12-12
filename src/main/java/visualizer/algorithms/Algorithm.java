@@ -19,7 +19,7 @@ public abstract class Algorithm{
                 break;
         
             case Fast:
-                this.sleep = 25;
+                this.sleep = 50;
                 break;
         }
         this.list = list;
