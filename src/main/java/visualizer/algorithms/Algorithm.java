@@ -45,4 +45,11 @@ public abstract class Algorithm{
         } catch (InterruptedException e) {
         }
     }
+
+    protected void finishColoring(){
+        for (Rectangle rectangle : list) {
+            sleep(5);
+            rectangle.setFill(Color.GREEN);
+        }
+    }
 }

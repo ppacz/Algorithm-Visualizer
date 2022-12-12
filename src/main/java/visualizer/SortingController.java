@@ -21,6 +21,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.shape.Rectangle;
 import visualizer.algorithms.Speed;
 import visualizer.algorithms.sorting.BubbleSort;
+import visualizer.algorithms.sorting.InsertionSort;
 import visualizer.algorithms.sorting.QuickSort;
 import visualizer.algorithms.sorting.SelectionSort;
 
@@ -41,7 +42,7 @@ public class SortingController implements Initializable {
     private AnchorPane mainPane;
     
     @FXML
-    private RadioButton bubble, linear, selection, marge, quick;
+    private RadioButton bubble, insertion, selection, marge, quick;
     
     private int numberOfValues;
     private boolean generated = false;
@@ -130,6 +131,8 @@ public class SortingController implements Initializable {
             return new SelectionSort(sleep, list);
         }else if(quick.isSelected()){
             return new QuickSort(sleep, list);
+        }else if(insertion.isSelected()){
+            return new InsertionSort(sleep, list);
         }
         Alert alert = new Alert(AlertType.WARNING);
         alert.setHeaderText("Nastala chyba");
