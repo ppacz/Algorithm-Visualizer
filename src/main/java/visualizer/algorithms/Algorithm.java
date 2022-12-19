@@ -8,6 +8,7 @@ public abstract class Algorithm{
     protected ObservableList<Rectangle> list;
     protected int sleep;
     protected double width;
+    private double startTime = System.currentTimeMillis();
     
     public Algorithm(Speed sleep, ObservableList<Rectangle> list){
         switch (sleep) {
@@ -52,4 +53,9 @@ public abstract class Algorithm{
             rectangle.setFill(Color.GREEN);
         }
     }
+
+    protected double algorithmDuration(double endTime){
+        return (endTime-this.startTime)/1000;
+    }
+
 }

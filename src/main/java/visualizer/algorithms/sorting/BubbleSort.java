@@ -2,6 +2,7 @@ package visualizer.algorithms.sorting;
 
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import visualizer.SortingController;
@@ -44,6 +45,13 @@ public class BubbleSort extends Algorithm implements Runnable{
         }
         SortingController.isRunning = false;
         finishColoring();
+        double duration = this.algorithmDuration(System.currentTimeMillis());
+        Platform.runLater(()->{
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Algoritmus ukončen");
+            alert.setContentText("Algoritmus byl ukončet za: " + duration + " sekund");
+            alert.show();
+        });
     }
 
 }

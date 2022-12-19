@@ -23,18 +23,20 @@ public class QuickSort extends Algorithm implements Runnable{
     public void run(){
         SortingController.isRunning = true;
         this.quickSort(0, this.list.size()-1);
+        if(SortingController.isRunning==false) return;
         SortingController.isRunning = false;
         finishColoring();
+        double duration = this.algorithmDuration(System.currentTimeMillis());
         Platform.runLater(()->{
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Algoritmus ukončen");
-            alert.setContentText("Algoritmus byl ukončet za: " + " sekund");
+            alert.setContentText("Algoritmus byl ukončet za: " + duration + " sekund");
             alert.show();
         });
     }
 
     private void quickSort(int start, int end){
-
+        if(SortingController.isRunning==false) return;
         if(end<=start) return;
         int pivot = this.partition(start, end);
         this.sleep(this.sleep/10);
@@ -52,6 +54,7 @@ public class QuickSort extends Algorithm implements Runnable{
         i = start - 1;
         //TODO finish coloring of the rectangles so it is colored right way
         for(j = start; j<=end;j++){
+            if(SortingController.isRunning==false) return 0;
             list.get(j).setFill(Color.YELLOW);
             if(this.list.get(j).getHeight() < pivot){
                 i++;
@@ -75,4 +78,5 @@ public class QuickSort extends Algorithm implements Runnable{
         });
         return i;
     }
+
 }
