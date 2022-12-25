@@ -22,6 +22,7 @@ import javafx.scene.shape.Rectangle;
 import visualizer.algorithms.Speed;
 import visualizer.algorithms.sorting.BubbleSort;
 import visualizer.algorithms.sorting.InsertionSort;
+import visualizer.algorithms.sorting.MergeSort;
 import visualizer.algorithms.sorting.QuickSort;
 import visualizer.algorithms.sorting.SelectionSort;
 
@@ -133,6 +134,8 @@ public class SortingController implements Initializable {
             return new QuickSort(sleep, list);
         }else if(insertion.isSelected()){
             return new InsertionSort(sleep, list);
+        }else if(marge.isSelected()){
+            return new MergeSort(sleep, list);
         }
         Alert alert = new Alert(AlertType.WARNING);
         alert.setHeaderText("Nastala chyba");

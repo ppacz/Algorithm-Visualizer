@@ -13,8 +13,8 @@ public class InsertionSort extends Algorithm implements Runnable {
 
     private int j;
 
-    public InsertionSort(Speed sleep, ObservableList<Rectangle> list) {
-        super(sleep, list);
+    public InsertionSort(Speed sleep, ObservableList<Rectangle> rectList) {
+        super(sleep, rectList);
 
     }
 
@@ -22,25 +22,25 @@ public class InsertionSort extends Algorithm implements Runnable {
     public void run() {
         SortingController.isRunning = true;
 		//TODO make compare coloring
-        for(int i = 1; i < this.list.size(); i++) {
-            int temp = (int) this.list.get(i).getHeight();
+        for(int i = 1; i < this.rectList.size(); i++) {
+            int temp = (int) this.rectList.get(i).getHeight();
             j = i - 1;
                 
-            while(j >= 0 && this.list.get(j).getHeight() > temp) {
+            while(j >= 0 && this.rectList.get(j).getHeight() > temp) {
                 if(SortingController.isRunning==false) return;
                 colorElements(new int[] {j,i}, Color.YELLOW);
                 this.sleep(this.sleep);
                 colorElements(new int[] {j}, Color.YELLOW);
                 Platform.runLater(()->{
-                    this.list.set(j + 1,new Rectangle(this.width,this.list.get(j).getHeight(), Color.YELLOW));
+                    this.rectList.set(j + 1,new Rectangle(this.width,this.rectList.get(j).getHeight(), Color.YELLOW));
                 });
                 this.sleep(this.sleep);
                 j--;
-                colorElements(0, this.list.size(), Color.BLACK);
+                colorElements(0, this.rectList.size(), Color.BLACK);
             }
             
             Platform.runLater(()->{
-                this.list.set(j + 1,new Rectangle(this.width,temp));
+                this.rectList.set(j + 1,new Rectangle(this.width,temp));
             });
             this.sleep(this.sleep);
         }

@@ -15,14 +15,14 @@ public class QuickSort extends Algorithm implements Runnable{
     private int i;
     private int j;
 
-    public QuickSort(Speed sleep, ObservableList<Rectangle> list) {
-        super(sleep, list);
+    public QuickSort(Speed sleep, ObservableList<Rectangle> rectList) {
+        super(sleep, rectList);
     }
     
     @Override
     public void run(){
         SortingController.isRunning = true;
-        this.quickSort(0, this.list.size()-1);
+        this.quickSort(0, this.rectList.size()-1);
         if(SortingController.isRunning==false) return;
         SortingController.isRunning = false;
         finishColoring();
@@ -48,20 +48,20 @@ public class QuickSort extends Algorithm implements Runnable{
 
     private int partition(int start,int end){
         
-        double pivot = this.list.get(end).getHeight();
-        list.get(end).setFill(Color.YELLOW);
+        double pivot = this.rectList.get(end).getHeight();
+        rectList.get(end).setFill(Color.YELLOW);
         this.sleep(10);
         i = start - 1;
         //TODO finish coloring of the rectangles so it is colored right way
         for(j = start; j<=end;j++){
             if(SortingController.isRunning==false) return 0;
-            list.get(j).setFill(Color.YELLOW);
-            if(this.list.get(j).getHeight() < pivot){
+            rectList.get(j).setFill(Color.YELLOW);
+            if(this.rectList.get(j).getHeight() < pivot){
                 i++;
                 Platform.runLater(()->{
-                    double temp = this.list.get(i).getHeight();
-                    this.list.set(i, new Rectangle(this.width, this.list.get(j).getHeight()));
-                    this.list.set(j, new Rectangle(this.width, temp, Color.YELLOW));
+                    double temp = this.rectList.get(i).getHeight();
+                    this.rectList.set(i, new Rectangle(this.width, this.rectList.get(j).getHeight()));
+                    this.rectList.set(j, new Rectangle(this.width, temp, Color.YELLOW));
                 });
             }
             // zde se musí Algorithm thread uspat, aby se stihl provést render a variable swap který je prováděn v JavaFx thread
@@ -69,12 +69,12 @@ public class QuickSort extends Algorithm implements Runnable{
             colorElements(new int[] {j}, Color.BLACK);
         }
         i++;
-        colorElements(0, this.list.size(), Color.BLACK);
+        colorElements(0, this.rectList.size(), Color.BLACK);
 
         Platform.runLater(()->{
-            double temp = this.list.get(i).getHeight();
-            this.list.set(i, new Rectangle(this.width, pivot));
-            this.list.set(end, new Rectangle(this.width, temp));
+            double temp = this.rectList.get(i).getHeight();
+            this.rectList.set(i, new Rectangle(this.width, pivot));
+            this.rectList.set(end, new Rectangle(this.width, temp));
         });
         return i;
     }

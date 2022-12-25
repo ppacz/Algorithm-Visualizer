@@ -13,18 +13,18 @@ public class BubbleSort extends Algorithm implements Runnable{
 
     private int j;
 
-    public BubbleSort(Speed sleep, ObservableList<Rectangle> list) {
-        super(sleep, list);
+    public BubbleSort(Speed sleep, ObservableList<Rectangle> rectList) {
+        super(sleep, rectList);
     }
 
     @Override
     public void run() {
-        int arrLength = list.size();
+        int arrLength = rectList.size();
         for(int i = 0; i<=arrLength-1; i++){
             for(j = 0; j<arrLength-i-1; j++ ){
                 if(SortingController.isRunning == false) return;
-                Double rect1 = list.get(j).getHeight();
-                Double rect2 = list.get(j+1).getHeight();
+                Double rect1 = rectList.get(j).getHeight();
+                Double rect2 = rectList.get(j+1).getHeight();
                 colorElements(new int[] {j, j+1}, Color.YELLOW);
                 try {
                     Thread.sleep(this.sleep/2);
@@ -32,8 +32,8 @@ public class BubbleSort extends Algorithm implements Runnable{
                 }
                 if(rect1 > rect2){
                     Platform.runLater(()->{
-                        list.set(j, new Rectangle(list.get(0).getWidth(), rect2, Color.YELLOW));
-                        list.set(j+1, new Rectangle(list.get(0).getWidth(), rect1, Color.YELLOW));
+                        rectList.set(j, new Rectangle(rectList.get(0).getWidth(), rect2, Color.YELLOW));
+                        rectList.set(j+1, new Rectangle(rectList.get(0).getWidth(), rect1, Color.YELLOW));
                     });
                 }
                 try {

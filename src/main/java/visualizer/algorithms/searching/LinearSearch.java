@@ -10,14 +10,14 @@ import visualizer.algorithms.Speed;
 public class LinearSearch extends Algorithm implements Runnable{
     private int value;
 
-    public LinearSearch(Speed sleep, ObservableList<Rectangle> list, int value) {
-        super(sleep, list);
+    public LinearSearch(Speed sleep, ObservableList<Rectangle> rectList, int value) {
+        super(sleep, rectList);
         this.value = value;
     }
 
     @Override
     public void run(){
-        for (Rectangle rectangle : this.list) {
+        for (Rectangle rectangle : this.rectList) {
             if(SearchingController.isRunning == false) return;
             if(rectangle.getHeight()==value){
                 rectangle.setFill(Color.GREEN);

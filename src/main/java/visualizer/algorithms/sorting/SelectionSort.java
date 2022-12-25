@@ -14,20 +14,20 @@ public class SelectionSort extends Algorithm implements Runnable {
     private int min;
     private int i;
 
-    public SelectionSort(Speed sleep, ObservableList<Rectangle> list) {
-        super(sleep, list);
+    public SelectionSort(Speed sleep, ObservableList<Rectangle> rectList) {
+        super(sleep, rectList);
     }
 
     @Override
     public void run() {
 
-        for(i = 0; i < this.list.size()-1;i++){
+        for(i = 0; i < this.rectList.size()-1;i++){
             min = i;
-            for(int j = i + 1; j <this.list.size(); j++){
+            for(int j = i + 1; j <this.rectList.size(); j++){
                 if(SortingController.isRunning==false) return;
-                colorElements(i, this.list.size(), Color.BLACK);
+                colorElements(i, this.rectList.size(), Color.BLACK);
                 colorElements(new int[] {j, min}, Color.YELLOW);
-                if(list.get(j).getHeight()<list.get(min).getHeight()){
+                if(rectList.get(j).getHeight()<rectList.get(min).getHeight()){
                     min = j;
                 }
                 try {
@@ -36,12 +36,12 @@ public class SelectionSort extends Algorithm implements Runnable {
                 }
             }
             Platform.runLater(()->{
-                int temp = (int) list.get(min).getHeight();
-                list.set(min, new Rectangle(list.get(0).getWidth(),list.get(i).getHeight()));
-                list.set(i, new Rectangle(list.get(0).getWidth(),temp));
+                int temp = (int) rectList.get(min).getHeight();
+                rectList.set(min, new Rectangle(rectList.get(0).getWidth(),rectList.get(i).getHeight()));
+                rectList.set(i, new Rectangle(rectList.get(0).getWidth(),temp));
             });
             sleep(this.sleep/10);
-            colorElements(i, this.list.size(), Color.BLACK);
+            colorElements(i, this.rectList.size(), Color.BLACK);
         }
         SortingController.isRunning = false;
         finishColoring();

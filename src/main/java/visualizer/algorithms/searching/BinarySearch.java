@@ -11,14 +11,14 @@ public class BinarySearch extends Algorithm implements Runnable {
     
     private int value;
 
-    public BinarySearch(Speed sleep, ObservableList<Rectangle> list, int value) {
-        super(sleep, list);
+    public BinarySearch(Speed sleep, ObservableList<Rectangle> rectList, int value) {
+        super(sleep, rectList);
         this.value = value;
     }
 
     @Override
     public void run() {
-        int high = this.list.size()-1;
+        int high = this.rectList.size()-1;
         int low = 0;
         while(low<high && SearchingController.isRunning){
             int middle = low + (high-low)/2;
@@ -27,7 +27,7 @@ public class BinarySearch extends Algorithm implements Runnable {
                 Thread.sleep(this.sleep);
             } catch (InterruptedException e) {
             }
-            int testingValue = (int) list.get(middle).getHeight();
+            int testingValue = (int) rectList.get(middle).getHeight();
             System.out.println(testingValue);
             if(testingValue < this.value){
                 this.colorElements(low, middle, Color.RED);

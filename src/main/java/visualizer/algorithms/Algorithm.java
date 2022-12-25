@@ -5,12 +5,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public abstract class Algorithm{
-    protected ObservableList<Rectangle> list;
+    protected ObservableList<Rectangle> rectList;
     protected int sleep;
     protected double width;
     private double startTime = System.currentTimeMillis();
     
-    public Algorithm(Speed sleep, ObservableList<Rectangle> list){
+    public Algorithm(Speed sleep, ObservableList<Rectangle> rectList){
         switch (sleep) {
             case Slow:
                 this.sleep = 1000;
@@ -23,20 +23,20 @@ public abstract class Algorithm{
                 this.sleep = 50;
                 break;
         }
-        this.list = list;
-        this.width = this.list.get(0).getWidth();
+        this.rectList = rectList;
+        this.width = this.rectList.get(0).getWidth();
     }
 
     
     protected void colorElements(int[] elements, Color color){
         for (int i : elements) {
-            list.get(i).setFill(color);
+            rectList.get(i).setFill(color);
         }
     }
 
     protected void colorElements(int start, int end, Color color){
         for(int i = start; i < end; i++) {
-            list.get(i).setFill(color);
+            rectList.get(i).setFill(color);
         }
     }
 
@@ -48,7 +48,7 @@ public abstract class Algorithm{
     }
 
     protected void finishColoring(){
-        for (Rectangle rectangle : list) {
+        for (Rectangle rectangle : rectList) {
             sleep(5);
             rectangle.setFill(Color.GREEN);
         }
