@@ -29,6 +29,7 @@ public class MergeSort extends Algorithm implements Runnable{
 		SortingController.isRunning = true;
 		this.mergeSort(this.heights, 0);
 		SortingController.isRunning =false;
+		this.algorithmDuration(System.currentTimeMillis());
 		this.finishColoring();
 	}
 

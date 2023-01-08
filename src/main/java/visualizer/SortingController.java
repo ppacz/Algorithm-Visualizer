@@ -43,7 +43,7 @@ public class SortingController implements Initializable {
     private AnchorPane mainPane;
     
     @FXML
-    private RadioButton bubble, insertion, selection, marge, quick;
+    private RadioButton bubble, insertion, selection, merge, quick;
     
     private int numberOfValues;
     private boolean generated = false;
@@ -134,7 +134,7 @@ public class SortingController implements Initializable {
             return new QuickSort(sleep, list);
         }else if(insertion.isSelected()){
             return new InsertionSort(sleep, list);
-        }else if(marge.isSelected()){
+        }else if(merge.isSelected()){
             return new MergeSort(sleep, list);
         }
         Alert alert = new Alert(AlertType.WARNING);

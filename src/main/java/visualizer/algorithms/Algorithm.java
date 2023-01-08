@@ -1,6 +1,8 @@
 package visualizer.algorithms;
 
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -8,6 +10,7 @@ public abstract class Algorithm{
     protected ObservableList<Rectangle> rectList;
     protected int sleep;
     protected double width;
+    private double duration;
     private double startTime = System.currentTimeMillis();
     
     public Algorithm(Speed sleep, ObservableList<Rectangle> rectList){
@@ -52,10 +55,16 @@ public abstract class Algorithm{
             sleep(5);
             rectangle.setFill(Color.GREEN);
         }
+        Platform.runLater(()->{
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Algoritmus ukončen");
+            alert.setContentText("Vyzualizace algoritmu byla ukončena za: " + duration + " sekund");
+            alert.show();
+        });
     }
 
-    protected double algorithmDuration(double endTime){
-        return (endTime-this.startTime)/1000;
+    protected void algorithmDuration(double endTime){
+        this.duration = (endTime-this.startTime)/1000;
     }
 
 }
