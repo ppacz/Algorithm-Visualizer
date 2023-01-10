@@ -40,3 +40,15 @@
     -fx-font-family: Vendana;
     -fx-font-size: 15px;
 }
+
+.info-button{
+    -fx-background-color: #5bc0de;
+    -fx-background-radius: 20;
+    -fx-border-color: black;
+    -fx-border-radius: 20;
+    -fx-border-width: 2;
+    -fx-font-family: Vendana;
+    -fx-font-size: 15px;
+    -fx-text-fill: black;
+    -fx-alignment: center;
+}
