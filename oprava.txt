@@ -1,0 +1,1 @@
+chyba v searchy, nevymazavá se array 

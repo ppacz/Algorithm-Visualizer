@@ -79,7 +79,7 @@ public class SortingController implements Initializable {
 
     @FXML
     protected void generate(){
-        if(generated) clearStage();
+        if(generated) this.clearStage();
         int amount = numberOfValues;
         int maxHeight = (int) sortingPane.getHeight()-10;
         int maxWidth = (int) (sortingPane.getWidth()/amount*.9);

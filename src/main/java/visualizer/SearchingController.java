@@ -8,9 +8,12 @@ import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Slider;
@@ -44,11 +47,14 @@ public class SearchingController implements Initializable {
     @FXML
     private AnchorPane mainPane;
 
-    private boolean needToBeSorted = false;
+    @FXML
+    private ChoiceBox<String> numberSearching;
+
+    private boolean isSorted = false;
     private int numberOfValues;
-    private int minHeight = 10;
     private boolean generated = false;
     public static boolean isRunning;
+    private int numToSearch;
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -59,44 +65,40 @@ public class SearchingController implements Initializable {
                 numberOfValues = (int) numberOfValuesSlider.getValue();
                 numberOfValuesText.setText("Počet hodnot: " + numberOfValues);
             }
-        });
-        /*
-         * TODO make thread killer
-         * TODO make quality of life changes
-         */
-        mainPane.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
-            if(key.getCode()==KeyCode.R) {
-                if(SearchingController.isRunning) SearchingController.isRunning = false;
-                else System.out.println("No algorithm running");
-            }
-      });
+            });
+            mainPane.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
+                if(key.getCode()==KeyCode.R) {
+                    if(SearchingController.isRunning) SearchingController.isRunning = false;
+                    else System.out.println("No algorithm running");
+                }
+            });
+        this.numberSearching.setOnAction(this::updateNumber);
     }
 
     @FXML
     protected void generate(){
-        if(generated) clearStage();
+        if(generated) this.clearStage();
         int amount = numberOfValues;
         int maxHeight = (int) searchingPane.getHeight()-10;
         int maxWidth = (int) (searchingPane.getWidth()/amount*.9);
         double padding = (searchingPane.getWidth()/amount*.05)/2;
+        this.numberSearching.getItems().clear();
         this.searchingPane.setSpacing(padding);
-        Random random = new Random();
-        
-        if(binary.isSelected()){
-            for(int i=1; i<amount+1; i++){
-                Rectangle rect = new Rectangle(maxWidth, (int) (i*(maxHeight-50)/amount)+50);
-                this.searchingPane.getChildren().add(rect);
-            }
-            needToBeSorted = true;
-        }else{
-            for(int i=0; i<amount; i++){
-                int randomNum = random.nextInt((maxHeight - minHeight) + 1) + minHeight;
-                Rectangle rect = new Rectangle(maxWidth, randomNum);
-                this.searchingPane.getChildren().add(rect);
-            }
-            needToBeSorted = false;
+        String[] numbers = new String[amount+1];
+        numbers[0] = "náhodná hodnota";
+        for(int i=1; i<amount+1; i++){
+            int height = (int) (i*(maxHeight-50)/amount)+50;
+            Rectangle rect = new Rectangle(maxWidth, height);
+            this.searchingPane.getChildren().add(rect);
+            numbers[i] = Integer.toString(height);
         }
-        Collections.shuffle(this.searchingPane.getChildren());
+
+        this.numberSearching.getItems().addAll(numbers);
+        this.isSorted = true;
+        if(!binary.isSelected()){
+            this.isSorted = false;
+            this.shuffle();
+        }
         generated = true;
     }
     
@@ -123,13 +125,12 @@ public class SearchingController implements Initializable {
             default:
                 algoSpeed = Speed.Slow;
             }
-        Runnable search = this.getAlgorithm(algoSpeed, (ObservableList) this.searchingPane.getChildren(), 84);
+        Runnable search = this.getAlgorithm(algoSpeed, (ObservableList) this.searchingPane.getChildren(), this.numToSearch);
         if(search!=null){
             SearchingController.isRunning = true;
             Thread thread = new Thread(search);
             thread.setName("Algorithm thread");
             thread.start();
-            
         }
     }
 
@@ -137,13 +138,42 @@ public class SearchingController implements Initializable {
     private Runnable getAlgorithm(Speed sleep, ObservableList<Rectangle> list, int value){
         if(linear.isSelected()){
             return new LinearSearch(sleep, list, value);
-        }else if(binary.isSelected() && needToBeSorted){
-            return new BinarySearch(sleep, list, value);
+        }else if(binary.isSelected()){
+            if(this.isSorted){
+                return new BinarySearch(sleep, list, value);
+            }
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.setHeaderText("Nastala chyba");
+            alert.setContentText("Vygenerujte čísla znovu. Čísla pro binární vyhledávání musí být seřazené.");
+            alert.show();    
+            return null;
         }
         Alert alert = new Alert(AlertType.WARNING);
         alert.setHeaderText("Nastala chyba");
         alert.setContentText("Nebyl vybrán žádný algoritmus");
         alert.show();
         return null;         
+    }
+
+    private void shuffle(){
+        Random random = new Random();
+        ObservableList<Rectangle> list = (ObservableList)this.searchingPane.getChildren();
+        for(int i = 0; i < list.size() - 1; i++){
+            int randomIndexToSwap = random.nextInt(list.size());
+			Double rect1 = list.get(randomIndexToSwap).getHeight();
+            Double rect2 = list.get(i).getHeight();
+			list.set(randomIndexToSwap, new Rectangle(list.get(0).getWidth(), rect2));
+			list.set(i, new Rectangle(list.get(0).getWidth(), rect1));
+        }
+    }
+
+    private void updateNumber(ActionEvent e){
+        String search = this.numberSearching.getValue();
+        if("náhodná hodnota" == search){
+            Random r = new Random();
+            this.numToSearch = r.nextInt(1000);
+        }else{
+            this.numToSearch = Integer.parseInt(search);
+        }
     }
 }

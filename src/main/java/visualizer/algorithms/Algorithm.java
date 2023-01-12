@@ -6,11 +6,11 @@ import javafx.scene.control.Alert;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public abstract class Algorithm{
+public abstract class Algorithm {
     protected ObservableList<Rectangle> rectList;
     protected int sleep;
     protected double width;
-    private double duration;
+    protected double duration;
     private double startTime = System.currentTimeMillis();
     
     public Algorithm(Speed sleep, ObservableList<Rectangle> rectList){
