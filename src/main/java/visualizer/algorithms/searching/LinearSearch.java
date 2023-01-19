@@ -13,8 +13,8 @@ public class LinearSearch extends Algorithm implements Runnable{
     private int value;
     private boolean found = false;
 
-    public LinearSearch(Speed sleep, ObservableList<Rectangle> rectList, int value) {
-        super(sleep, rectList);
+    public LinearSearch(Speed sleep, ObservableList<Rectangle> rectList, int value, boolean fromFile) {
+        super(sleep, rectList, fromFile);
         this.value = value;
     }
 

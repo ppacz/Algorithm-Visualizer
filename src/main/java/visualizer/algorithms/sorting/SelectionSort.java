@@ -13,8 +13,8 @@ public class SelectionSort extends Algorithm implements Runnable {
     private int min;
     private int i;
 
-    public SelectionSort(Speed sleep, ObservableList<Rectangle> rectList) {
-        super(sleep, rectList);
+    public SelectionSort(Speed sleep, ObservableList<Rectangle> rectList, boolean fromFile) {
+        super(sleep, rectList, fromFile);
     }
 
     @Override

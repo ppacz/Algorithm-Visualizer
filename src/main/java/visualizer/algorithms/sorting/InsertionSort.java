@@ -12,8 +12,8 @@ public class InsertionSort extends Algorithm implements Runnable {
 
     private int j;
 
-    public InsertionSort(Speed sleep, ObservableList<Rectangle> rectList) {
-        super(sleep, rectList);
+    public InsertionSort(Speed sleep, ObservableList<Rectangle> rectList, boolean fromFile) {
+        super(sleep, rectList, fromFile);
 
     }
 

@@ -16,8 +16,8 @@ public class MergeSort extends Algorithm implements Runnable{
 	private int lIndex;
 	private int rIndex;
 
-	public MergeSort(Speed sleep, ObservableList<Rectangle> rectList) {
-		super(sleep, rectList);
+	public MergeSort(Speed sleep, ObservableList<Rectangle> rectList, boolean fromFile) {
+		super(sleep, rectList, fromFile);
 		this.heights = new int[rectList.size()];
 		for(int i = 0; i < rectList.size();i++){
 			this.heights[i] = (int) rectList.get(i).getHeight();

@@ -14,8 +14,8 @@ public class BinarySearch extends Algorithm implements Runnable {
     private int value;
     private boolean found = false;
 
-    public BinarySearch(Speed sleep, ObservableList<Rectangle> rectList, int value) {
-        super(sleep, rectList);
+    public BinarySearch(Speed sleep, ObservableList<Rectangle> rectList, int value, boolean fromFile) {
+        super(sleep, rectList, fromFile);
         this.value = value;
     }
 

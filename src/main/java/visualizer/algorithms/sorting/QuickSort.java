@@ -14,8 +14,8 @@ public class QuickSort extends Algorithm implements Runnable{
     private int i;
     private int j;
 
-    public QuickSort(Speed sleep, ObservableList<Rectangle> rectList) {
-        super(sleep, rectList);
+    public QuickSort(Speed sleep, ObservableList<Rectangle> rectList, boolean fromFile) {
+        super(sleep, rectList, fromFile);
     }
     
     @Override

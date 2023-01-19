@@ -12,8 +12,9 @@ public abstract class Algorithm {
     protected double width;
     protected double duration;
     private double startTime = System.currentTimeMillis();
-    
-    public Algorithm(Speed sleep, ObservableList<Rectangle> rectList){
+    private boolean fromFile;
+
+    public Algorithm(Speed sleep, ObservableList<Rectangle> rectList, boolean fromFile){
         switch (sleep) {
             case Slow:
                 this.sleep = 1000;
@@ -28,6 +29,7 @@ public abstract class Algorithm {
         }
         this.rectList = rectList;
         this.width = this.rectList.get(0).getWidth();
+        this.fromFile = true;
     }
 
     

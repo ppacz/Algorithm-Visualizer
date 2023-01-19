@@ -48,6 +48,7 @@ public class SortingController implements Initializable {
     private int numberOfValues;
     private boolean generated = false;
     public static boolean isRunning;
+    private boolean fromFile = false;
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -127,15 +128,15 @@ public class SortingController implements Initializable {
 
     private Runnable getAlgorithm(Speed sleep, ObservableList<Rectangle> list){
         if(bubble.isSelected()){
-            return new BubbleSort(sleep, list);
+            return new BubbleSort(sleep, list, this.fromFile);
         }else if(selection.isSelected()){
-            return new SelectionSort(sleep, list);
+            return new SelectionSort(sleep, list, this.fromFile);
         }else if(quick.isSelected()){
-            return new QuickSort(sleep, list);
+            return new QuickSort(sleep, list, this.fromFile);
         }else if(insertion.isSelected()){
-            return new InsertionSort(sleep, list);
+            return new InsertionSort(sleep, list, this.fromFile);
         }else if(merge.isSelected()){
-            return new MergeSort(sleep, list);
+            return new MergeSort(sleep, list, this.fromFile);
         }
         Alert alert = new Alert(AlertType.WARNING);
         alert.setHeaderText("Nastala chyba");

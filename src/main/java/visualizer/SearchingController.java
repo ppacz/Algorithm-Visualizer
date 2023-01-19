@@ -1,9 +1,12 @@
 package visualizer;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.Collections;
 import java.util.Random;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -23,6 +26,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import visualizer.algorithms.Speed;
 import visualizer.algorithms.searching.BinarySearch;
 import visualizer.algorithms.searching.LinearSearch;
@@ -55,6 +60,7 @@ public class SearchingController implements Initializable {
     private boolean generated = false;
     public static boolean isRunning;
     private int numToSearch;
+    private boolean fromFile = false;
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -99,7 +105,37 @@ public class SearchingController implements Initializable {
             this.isSorted = false;
             this.shuffle();
         }
+        this.fromFile = false;
         generated = true;
+    }
+
+    private void generate(int[] numbers){
+        System.out.println("is called");
+        if(generated) this.clearStage();
+        this.fromFile = true;
+        int heightMultiplier = (int) (searchingPane.getHeight()-10)/100;
+        int maxWidth = (int) (searchingPane.getWidth()/(numbers.length)*.9);
+        double padding = (searchingPane.getWidth()/numbers.length*.05)/2;
+        this.numberSearching.getItems().clear();
+        this.searchingPane.setSpacing(padding);
+        String[] numberText = new String[numbers.length+1];
+        numberText[0] = "náhodná hodnota";
+        for(int i=1; i<numbers.length+1; i++){
+            int height = (int) numbers[i-1]*heightMultiplier;
+            Rectangle rect = new Rectangle(maxWidth, height);
+            this.searchingPane.getChildren().add(rect);
+            numberText[i] = Integer.toString(height);
+        }
+        numberOfValuesSlider.setValue(numbers.length);
+        numberOfValuesText.setText("Počet hodnot: " + numbers.length);
+        this.numberSearching.getItems().addAll(numberText);
+        this.isSorted = true;
+        for (int i = 0; i < numbers.length-1; i++){
+            if(numbers[i]>numbers[i+1]){
+                this.isSorted = false;
+                return;
+            }
+        }
     }
     
     private void clearStage(){
@@ -107,8 +143,6 @@ public class SearchingController implements Initializable {
         list.clear();
     }
 
-
-    // TODO findout how to send back message when done
     @FXML
     private void search(){
         Speed algoSpeed;
@@ -137,10 +171,10 @@ public class SearchingController implements Initializable {
 
     private Runnable getAlgorithm(Speed sleep, ObservableList<Rectangle> list, int value){
         if(linear.isSelected()){
-            return new LinearSearch(sleep, list, value);
+            return new LinearSearch(sleep, list, value, this.fromFile);
         }else if(binary.isSelected()){
             if(this.isSorted){
-                return new BinarySearch(sleep, list, value);
+                return new BinarySearch(sleep, list, value, this.fromFile);
             }
             Alert alert = new Alert(AlertType.WARNING);
             alert.setHeaderText("Nastala chyba");
@@ -175,5 +209,32 @@ public class SearchingController implements Initializable {
         }else{
             this.numToSearch = Integer.parseInt(search);
         }
+    }
+
+    @FXML
+    private void getFile(){
+        FileChooser chooser = new FileChooser();
+        chooser.setTitle("Vyberte soubor s daty:");
+        Stage stage = (Stage) mainPane.getScene().getWindow();
+        chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("textový soubor", "*.txt"));
+        File file = chooser.showOpenDialog(stage);
+        try {
+            Scanner scanner = new Scanner(file);
+            String text = scanner.nextLine();
+            String[] numberText = text.split(",");
+            int[] numbers = new int[numberText.length-1];
+            for(int i = 0; i<numberText.length-1;i++){
+                numbers[i] = Integer.parseInt(numberText[i]);
+                System.out.print(numbers[i]+" ,");
+            }
+            this.generate(numbers);
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Chyba");
+            alert.setContentText("Při načítání souboru nastala chyba");
+            e.printStackTrace();
+        }
+
     }
 }

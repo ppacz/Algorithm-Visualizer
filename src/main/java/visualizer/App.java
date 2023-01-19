@@ -20,6 +20,7 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("menu"), WIDTH, HEIGHT);
+        stage.setTitle("Vizualizátor algoritmů");
         stage.setScene(scene);
         stage.setMinHeight(HEIGHT);
         stage.setMinWidth(WIDTH);
