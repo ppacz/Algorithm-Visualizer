@@ -14,8 +14,8 @@ public class QuickSort extends Algorithm implements Runnable{
     private int i;
     private int j;
 
-    public QuickSort(Speed sleep, ObservableList<Rectangle> rectList, boolean fromFile) {
-        super(sleep, rectList, fromFile);
+    public QuickSort(Speed sleep, ObservableList<Rectangle> rectList, boolean fromFile, int multi) {
+        super(sleep, rectList, fromFile, multi);
     }
     
     @Override
@@ -25,7 +25,7 @@ public class QuickSort extends Algorithm implements Runnable{
         if(SortingController.isRunning==false) return;
         SortingController.isRunning = false;
         this.algorithmDuration(System.currentTimeMillis());
-        finishColoring();
+        this.finishSortAlgorithm();
     }
 
     private void quickSort(int start, int end){

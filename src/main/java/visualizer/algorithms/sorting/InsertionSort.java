@@ -12,8 +12,8 @@ public class InsertionSort extends Algorithm implements Runnable {
 
     private int j;
 
-    public InsertionSort(Speed sleep, ObservableList<Rectangle> rectList, boolean fromFile) {
-        super(sleep, rectList, fromFile);
+    public InsertionSort(Speed sleep, ObservableList<Rectangle> rectList, boolean fromFile, int multi) {
+        super(sleep, rectList, fromFile, multi);
 
     }
 
@@ -45,7 +45,7 @@ public class InsertionSort extends Algorithm implements Runnable {
         }
         SortingController.isRunning = false;
         this.algorithmDuration(System.currentTimeMillis());
-        finishColoring();
+        this.finishSortAlgorithm();
     }
     
 }

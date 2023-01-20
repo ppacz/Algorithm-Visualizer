@@ -1,8 +1,11 @@
 package visualizer;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.Random;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -19,6 +22,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import visualizer.algorithms.Speed;
 import visualizer.algorithms.sorting.BubbleSort;
 import visualizer.algorithms.sorting.InsertionSort;
@@ -49,6 +54,7 @@ public class SortingController implements Initializable {
     private boolean generated = false;
     public static boolean isRunning;
     private boolean fromFile = false;
+    private int multi;
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -91,7 +97,26 @@ public class SortingController implements Initializable {
             this.sortingPane.getChildren().add(rect);
         }
         this.shuffle();
+        this.multi = 1;
         generated = true;
+    }
+
+    private void generateFromFile(int[] numbers){
+        System.out.println("is called");
+        if(generated) this.clearStage();
+        this.fromFile = true;
+        this.multi = (int) (sortingPane.getHeight()-10)/100;
+        int maxWidth = (int) (sortingPane.getWidth()/(numbers.length)*.9);
+        double padding = (sortingPane.getWidth()/numbers.length*.05)/2;
+        this.sortingPane.setSpacing(padding);
+        for(int i=1; i<numbers.length+1; i++){
+            int height = (int) numbers[i-1]*this.multi;
+            Rectangle rect = new Rectangle(maxWidth, height);
+            this.sortingPane.getChildren().add(rect);
+            System.out.println("is called");
+        }
+        numberOfValuesSlider.setValue(numbers.length);
+        numberOfValuesText.setText("Počet hodnot: " + numbers.length);
     }
     
     private void clearStage(){
@@ -128,15 +153,15 @@ public class SortingController implements Initializable {
 
     private Runnable getAlgorithm(Speed sleep, ObservableList<Rectangle> list){
         if(bubble.isSelected()){
-            return new BubbleSort(sleep, list, this.fromFile);
+            return new BubbleSort(sleep, list, this.fromFile, this.multi);
         }else if(selection.isSelected()){
-            return new SelectionSort(sleep, list, this.fromFile);
+            return new SelectionSort(sleep, list, this.fromFile, this.multi);
         }else if(quick.isSelected()){
-            return new QuickSort(sleep, list, this.fromFile);
+            return new QuickSort(sleep, list, this.fromFile, this.multi);
         }else if(insertion.isSelected()){
-            return new InsertionSort(sleep, list, this.fromFile);
+            return new InsertionSort(sleep, list, this.fromFile, this.multi);
         }else if(merge.isSelected()){
-            return new MergeSort(sleep, list, this.fromFile);
+            return new MergeSort(sleep, list, this.fromFile, this.multi);
         }
         Alert alert = new Alert(AlertType.WARNING);
         alert.setHeaderText("Nastala chyba");
@@ -155,5 +180,31 @@ public class SortingController implements Initializable {
 			list.set(randomIndexToSwap, new Rectangle(list.get(0).getWidth(), rect2));
 			list.set(i, new Rectangle(list.get(0).getWidth(), rect1));
         }
+    }
+
+    @FXML
+    private void getFile(){
+        FileChooser chooser = new FileChooser();
+        chooser.setTitle("Vyberte soubor s daty:");
+        Stage stage = (Stage) mainPane.getScene().getWindow();
+        chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("textový soubor", "*.txt"));
+        File file = chooser.showOpenDialog(stage);
+        try {
+            Scanner scanner = new Scanner(file);
+            String text = scanner.nextLine();
+            String[] numberText = text.split(",");
+            int[] numbers = new int[numberText.length];
+            for(int i = 0; i<numberText.length;i++){
+                numbers[i] = Integer.parseInt(numberText[i]);
+            }
+            this.generateFromFile(numbers);
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Chyba");
+            alert.setContentText("Při načítání souboru nastala chyba");
+            e.printStackTrace();
+        }
+
     }
 }

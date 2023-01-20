@@ -1,5 +1,9 @@
 package visualizer.algorithms;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
@@ -12,9 +16,10 @@ public abstract class Algorithm {
     protected double width;
     protected double duration;
     private double startTime = System.currentTimeMillis();
-    private boolean fromFile;
+    protected boolean fromFile;
+    protected int multi;
 
-    public Algorithm(Speed sleep, ObservableList<Rectangle> rectList, boolean fromFile){
+    public Algorithm(Speed sleep, ObservableList<Rectangle> rectList, boolean fromFile, int multi){
         switch (sleep) {
             case Slow:
                 this.sleep = 1000;
@@ -30,6 +35,7 @@ public abstract class Algorithm {
         this.rectList = rectList;
         this.width = this.rectList.get(0).getWidth();
         this.fromFile = true;
+        this.multi = multi;
     }
 
     
@@ -52,17 +58,46 @@ public abstract class Algorithm {
         }
     }
 
-    protected void finishColoring(){
+    protected void finishSortAlgorithm(){
+        this.finishColoring();
+        String text = "Vyzualizace algoritmu byla ukončena za: " + duration + " sekund";
+        String title = "Výsledky algoritmu";
+        if(this.fromFile){
+            File file = new File("results.txt");
+            String output = "";
+            for (Rectangle rectangle : this.rectList) {
+                output += (int) rectangle.getHeight()/this.multi + ", ";
+            }
+            output = output.substring(0, output.length()-2);
+            try (FileWriter writer = new FileWriter(file)) {
+                writer.write(output);
+                title += " a informace o uložení";
+                text += "\nVýsledky byly uloženy do projektu pod názvem results.txt";
+                writer.close();
+            } catch (IOException e) {
+                this.showMessage("Soubor se nepodařilo uložit", "Chyba!");
+                e.printStackTrace();
+                return;
+            }
+        }
+        this.showMessage(text, title);
+    }
+
+
+    private void showMessage(String texString, String title){
+        Platform.runLater(()->{
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle(title);
+            alert.setContentText(texString);
+            alert.show();
+        });
+    }
+
+    private void finishColoring(){
         for (Rectangle rectangle : rectList) {
             sleep(5);
             rectangle.setFill(Color.GREEN);
         }
-        Platform.runLater(()->{
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Algoritmus ukončen");
-            alert.setContentText("Vyzualizace algoritmu byla ukončena za: " + duration + " sekund");
-            alert.show();
-        });
     }
 
     protected void algorithmDuration(double endTime){
