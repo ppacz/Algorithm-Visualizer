@@ -3,7 +3,6 @@ package visualizer;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URL;
-import java.util.Collections;
 import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.Scanner;
@@ -16,7 +15,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Slider;
@@ -162,6 +160,7 @@ public class SearchingController implements Initializable {
             }
         Runnable search = this.getAlgorithm(algoSpeed, (ObservableList) this.searchingPane.getChildren(), this.numToSearch);
         if(search!=null){
+            
             SearchingController.isRunning = true;
             Thread thread = new Thread(search);
             thread.setName("Algorithm thread");

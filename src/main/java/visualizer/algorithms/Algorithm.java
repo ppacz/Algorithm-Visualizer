@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import utils.Counter;
 
 public abstract class Algorithm {
     protected ObservableList<Rectangle> rectList;
@@ -18,8 +19,10 @@ public abstract class Algorithm {
     private double startTime = System.currentTimeMillis();
     protected boolean fromFile;
     protected int multi;
+    protected Counter counter;
 
-    public Algorithm(Speed sleep, ObservableList<Rectangle> rectList, boolean fromFile, int multi){
+    public Algorithm(Speed sleep, ObservableList<Rectangle> rectList, boolean fromFile, int multi) {
+
         switch (sleep) {
             case Slow:
                 this.sleep = 1000;
@@ -32,6 +35,7 @@ public abstract class Algorithm {
                 this.sleep = 50;
                 break;
         }
+        this.counter = new Counter();
         this.rectList = rectList;
         this.width = this.rectList.get(0).getWidth();
         this.fromFile = true;
