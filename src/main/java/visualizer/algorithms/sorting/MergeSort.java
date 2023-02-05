@@ -16,8 +16,8 @@ public class MergeSort extends Algorithm implements Runnable{
 	private int lIndex;
 	private int rIndex;
 
-	public MergeSort(Speed sleep, ObservableList<Rectangle> rectList) {
-		super(sleep, rectList);
+	public MergeSort(Speed sleep, ObservableList<Rectangle> rectList, boolean fromFile, int multi) {
+		super(sleep, rectList, fromFile, multi);
 		this.heights = new int[rectList.size()];
 		for(int i = 0; i < rectList.size();i++){
 			this.heights[i] = (int) rectList.get(i).getHeight();
@@ -30,7 +30,7 @@ public class MergeSort extends Algorithm implements Runnable{
 		this.mergeSort(this.heights, 0);
 		SortingController.isRunning =false;
 		this.algorithmDuration(System.currentTimeMillis());
-		this.finishColoring();
+		this.finishSortAlgorithm();
 	}
 
 	private void mergeSort(int[] heights, int beginIndex) {

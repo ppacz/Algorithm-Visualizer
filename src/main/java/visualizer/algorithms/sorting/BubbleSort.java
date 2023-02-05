@@ -12,8 +12,8 @@ public class BubbleSort extends Algorithm implements Runnable{
 
     private int j;
 
-    public BubbleSort(Speed sleep, ObservableList<Rectangle> rectList) {
-        super(sleep, rectList);
+    public BubbleSort(Speed sleep, ObservableList<Rectangle> rectList, boolean fromFile,int multi) {
+        super(sleep, rectList, fromFile, multi);
     }
 
     @Override
@@ -44,7 +44,7 @@ public class BubbleSort extends Algorithm implements Runnable{
         }
         SortingController.isRunning = false;
         this.algorithmDuration(System.currentTimeMillis());
-        finishColoring();
+        this.finishSortAlgorithm();
     }
 
 }

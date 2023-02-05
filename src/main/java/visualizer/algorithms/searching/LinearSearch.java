@@ -13,8 +13,8 @@ public class LinearSearch extends Algorithm implements Runnable{
     private int value;
     private boolean found = false;
 
-    public LinearSearch(Speed sleep, ObservableList<Rectangle> rectList, int value) {
-        super(sleep, rectList);
+    public LinearSearch(Speed sleep, ObservableList<Rectangle> rectList, int value, boolean fromFile, int multi) {
+        super(sleep, rectList, fromFile, multi);
         this.value = value;
     }
 
@@ -45,6 +45,7 @@ public class LinearSearch extends Algorithm implements Runnable{
         Platform.runLater(()->{
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Algoritmus ukončen");
+            this.value = this.value/this.multi; 
             String text = "Vyzualizace algoritmu byla ukončena za: " + this.duration + " sekund.\nČíslo " + this.value;
             if(this.found){
                 text+= " bylo nalezeno.";
