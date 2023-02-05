@@ -14,4 +14,8 @@ public class Counter {
     public void increment() {
         this.count++;
     }
+
+    public void increseBy(int i) {
+    this.count += i;
+    }
 }

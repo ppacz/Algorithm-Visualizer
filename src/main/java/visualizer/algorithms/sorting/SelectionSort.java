@@ -40,7 +40,9 @@ public class SelectionSort extends Algorithm implements Runnable {
                 rectList.set(i, new Rectangle(rectList.get(0).getWidth(),temp));
             });
             sleep(this.sleep/10);
+            this.counter.increseBy((this.rectList.size()-i+1)*2);
             colorElements(i, this.rectList.size(), Color.BLACK);
+            this.updateTexts();
         }
         SortingController.isRunning = false;
         this.algorithmDuration(System.currentTimeMillis());

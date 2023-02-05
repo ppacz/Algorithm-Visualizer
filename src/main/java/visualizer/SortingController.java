@@ -24,6 +24,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import visualizer.algorithms.Algorithm;
 import visualizer.algorithms.Speed;
 import visualizer.algorithms.sorting.BubbleSort;
 import visualizer.algorithms.sorting.InsertionSort;
@@ -33,7 +34,7 @@ import visualizer.algorithms.sorting.SelectionSort;
 
 public class SortingController implements Initializable {
     @FXML
-    private Label numberOfValuesText;
+    private Label numberOfValuesText, algorithmTime, numberOfReads;
 
     @FXML
     private HBox sortingPane;
@@ -143,6 +144,7 @@ public class SortingController implements Initializable {
             }
         Runnable search = this.getAlgorithm(algoSpeed, (ObservableList) this.sortingPane.getChildren());
         if(search!=null){
+            
             SortingController.isRunning = true;
             Thread thread = new Thread(search);
             thread.setName("Algorithm thread");
@@ -152,16 +154,21 @@ public class SortingController implements Initializable {
 
 
     private Runnable getAlgorithm(Speed sleep, ObservableList<Rectangle> list){
+        Algorithm algo = null;
         if(bubble.isSelected()){
-            return new BubbleSort(sleep, list, this.fromFile, this.multi);
+            algo = new BubbleSort(sleep, list, this.fromFile, this.multi);
         }else if(selection.isSelected()){
-            return new SelectionSort(sleep, list, this.fromFile, this.multi);
+            algo = new SelectionSort(sleep, list, this.fromFile, this.multi);
         }else if(quick.isSelected()){
-            return new QuickSort(sleep, list, this.fromFile, this.multi);
+            algo = new QuickSort(sleep, list, this.fromFile, this.multi);
         }else if(insertion.isSelected()){
-            return new InsertionSort(sleep, list, this.fromFile, this.multi);
+            algo = new InsertionSort(sleep, list, this.fromFile, this.multi);
         }else if(merge.isSelected()){
-            return new MergeSort(sleep, list, this.fromFile, this.multi);
+            algo = new MergeSort(sleep, list, this.fromFile, this.multi);
+        }
+        if(algo!=null){
+            algo.addLabels(this.algorithmTime, this.numberOfReads);
+            return (Runnable) algo;
         }
         Alert alert = new Alert(AlertType.WARNING);
         alert.setHeaderText("Nastala chyba");
@@ -207,4 +214,5 @@ public class SortingController implements Initializable {
         }
 
     }
+
 }

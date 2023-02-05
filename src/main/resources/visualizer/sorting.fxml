@@ -93,9 +93,9 @@
               </rowConstraints>
                <children>
                   <Label alignment="CENTER" prefHeight="130.0" prefWidth="161.0" text="Čas" />
-                  <Label alignment="CENTER" prefHeight="246.0" prefWidth="421.0" text="Počet operací" textAlignment="CENTER" textOverrun="CLIP" wrapText="true" GridPane.columnIndex="1" />
-                  <Label alignment="CENTER" prefHeight="234.0" prefWidth="423.0" text="xx.xx sec" GridPane.rowIndex="1" />
-                  <Label alignment="CENTER" prefHeight="97.0" prefWidth="266.0" text="xxxx" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label alignment="CENTER" prefHeight="246.0" prefWidth="421.0" text="Počet přístupů" textAlignment="CENTER" textOverrun="CLIP" wrapText="true" GridPane.columnIndex="1" />
+                  <Label fx:id="algorithmTime" alignment="CENTER" prefHeight="234.0" prefWidth="423.0" text="xx.xx sec" GridPane.rowIndex="1" />
+                  <Label fx:id="numberOfReads" alignment="CENTER" prefHeight="97.0" prefWidth="266.0" text="xxxx" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
             </GridPane>
          </children>

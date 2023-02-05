@@ -41,6 +41,8 @@ public class BubbleSort extends Algorithm implements Runnable{
                 }
                 colorElements(new int[] {j,j+1}, Color.BLACK);
             }
+            this.counter.increseBy((arrLength-i-1)*2);
+            this.updateTexts();
         }
         SortingController.isRunning = false;
         this.algorithmDuration(System.currentTimeMillis());

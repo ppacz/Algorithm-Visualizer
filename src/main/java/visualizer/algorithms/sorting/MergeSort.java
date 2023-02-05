@@ -28,6 +28,7 @@ public class MergeSort extends Algorithm implements Runnable{
 	public void run() {
 		SortingController.isRunning = true;
 		this.mergeSort(this.heights, 0);
+		if(SortingController.isRunning==false) return;
 		SortingController.isRunning =false;
 		this.algorithmDuration(System.currentTimeMillis());
 		this.finishSortAlgorithm();
@@ -45,7 +46,7 @@ public class MergeSort extends Algorithm implements Runnable{
 
 		int i = 0;
 		int j = 0;
-
+		if(SortingController.isRunning==false) return;
 		for(; i < length; i++){
 			if(i < middle){
 				leftArray[i] = heights[i];
@@ -55,8 +56,11 @@ public class MergeSort extends Algorithm implements Runnable{
 			}
 		}
 		this.mergeSort(leftArray, beginIndex);
+		if(SortingController.isRunning==false) return;
 		this.mergeSort(rightArray, beginIndex+middle);
+		if(SortingController.isRunning==false) return;
 		this.merge(leftArray, rightArray, heights, beginIndex);
+		if(SortingController.isRunning==false) return;
 	}
 
 	private void merge(int[] leftArray, int[] rightArray, int[] original, int start) {
@@ -90,9 +94,12 @@ public class MergeSort extends Algorithm implements Runnable{
 				this.index++;
 				this.rIndex++;
 			}
-			
+			this.counter.increseBy(2);
+			if(SortingController.isRunning==false) return;
 		}
+		
 		while(this.lIndex < leftSize) {
+			if(SortingController.isRunning==false) return;
 			Platform.runLater(() -> {
 			this.rectList.set(this.index+start, new Rectangle(this.width, leftArray[this.lIndex]));
 			});
@@ -100,8 +107,10 @@ public class MergeSort extends Algorithm implements Runnable{
 			this.sleep(this.sleep);
 			this.index++;
 			this.lIndex++;
+			this.counter.increment();
 		}
 		while(this.rIndex < rightSize) {
+			if(SortingController.isRunning==false) return;
 			Platform.runLater(() -> {
 				this.rectList.set(this.index+start, new Rectangle(this.width, rightArray[this.rIndex]));
 			});
@@ -109,6 +118,8 @@ public class MergeSort extends Algorithm implements Runnable{
 			this.sleep(this.sleep);
 			this.index++;
 			this.rIndex++;
+			this.counter.increment();
 		}
+		this.updateTexts();
 	}
 }

@@ -46,6 +46,7 @@ public class QuickSort extends Algorithm implements Runnable{
         this.sleep(10);
         i = start - 1;
         for(j = start; j<=end;j++){
+            this.counter.increseBy(2);
             if(SortingController.isRunning==false) return 0;
             rectList.get(j).setFill(Color.YELLOW);
             if(this.rectList.get(j).getHeight() < pivot){
@@ -68,6 +69,7 @@ public class QuickSort extends Algorithm implements Runnable{
             this.rectList.set(i, new Rectangle(this.width, pivot));
             this.rectList.set(end, new Rectangle(this.width, temp));
         });
+        this.updateTexts();
         return i;
     }
 

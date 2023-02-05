@@ -7,6 +7,7 @@ import java.io.IOException;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import utils.Counter;
@@ -20,6 +21,7 @@ public abstract class Algorithm {
     protected boolean fromFile;
     protected int multi;
     protected Counter counter;
+    protected Label reads, time;
 
     public Algorithm(Speed sleep, ObservableList<Rectangle> rectList, boolean fromFile, int multi) {
 
@@ -47,6 +49,13 @@ public abstract class Algorithm {
         for (int i : elements) {
             rectList.get(i).setFill(color);
         }
+    }
+
+    public void addLabels(Label time, Label reads){
+        if (time != null) this.time = time;
+        else this.time = null;
+        if (reads!= null) this.reads = reads;
+        else this.reads = null;
     }
 
     protected void colorElements(int start, int end, Color color){
@@ -106,6 +115,13 @@ public abstract class Algorithm {
 
     protected void algorithmDuration(double endTime){
         this.duration = (endTime-this.startTime)/1000;
+    }
+
+    protected void updateTexts(){
+        Platform.runLater(()->{
+            this.reads.setText(String.valueOf(this.counter.getCount()));
+            this.time.setText(String.valueOf((System.currentTimeMillis()-this.startTime)/1000));
+        });
     }
 
 }
