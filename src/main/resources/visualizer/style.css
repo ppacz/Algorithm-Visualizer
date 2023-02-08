@@ -1,6 +1,6 @@
 .root{
     -fx-background-color: lightgray;
-    -fx-font-family: Vendana;
+    -fx-font-family: Verdana;
 }
 
 .button:hover {
@@ -17,7 +17,7 @@
     -fx-background-color: lightblue;
     -fx-border-color: black;
     -fx-border-width: 2px;
-    -fx-font-family: Vendana;
+    -fx-font-family: Verdana;
     -fx-font-size: 30px;
 }
 
@@ -26,17 +26,17 @@
 }
 
 .paramsLabel{
-    -fx-font-family: Vendana;
+    -fx-font-family: Verdana;
     -fx-font-size: 20px;
 }
 
 .paramsTitle{
-    -fx-font-family: Vendana;
+    -fx-font-family: Verdana;
     -fx-font-size: 35px;
     -fx-font-weight: 900;
 }
 
 .params{
-    -fx-font-family: Vendana;
+    -fx-font-family: Verdana;
     -fx-font-size: 15px;
 }
