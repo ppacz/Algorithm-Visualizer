@@ -2,6 +2,7 @@ package visualizer;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -75,6 +76,16 @@ public class SearchingController implements Initializable {
                 if(key.getCode()==KeyCode.R) {
                     if(SearchingController.isRunning) SearchingController.isRunning = false;
                     else System.out.println("No algorithm running");
+                }else if(key.getCode() == KeyCode.ESCAPE){
+                    try {
+                        this.isRunning = false;
+                        App.setRoot("menu");
+                    } catch (IOException e) {
+                        Alert alert = new Alert(AlertType.ERROR);
+                        alert.setTitle("Chyba");
+                        alert.setContentText("Vypněte a znovu zapněte aplikaci, došlo k interní chybě");
+                        alert.show();
+                    }
                 }
             });
         this.numberSearching.setOnAction(this::updateNumber);
@@ -129,6 +140,7 @@ public class SearchingController implements Initializable {
         numberOfValuesText.setText("Počet hodnot: " + numbers.length);
         this.numberSearching.getItems().addAll(numberText);
         this.isSorted = true;
+        this.generated = true;
         for (int i = 0; i < numbers.length-1; i++){
             if(numbers[i]>numbers[i+1]){
                 this.isSorted = false;

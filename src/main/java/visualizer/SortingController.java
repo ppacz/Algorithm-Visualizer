@@ -2,6 +2,7 @@ package visualizer;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -68,14 +69,21 @@ public class SortingController implements Initializable {
             }
             
         });
-        /*
-         * TODO make thread killer
-         * TODO make quality of life changes
-         */
+
         mainPane.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
             if(key.getCode()==KeyCode.R) {
                 if(SortingController.isRunning)SortingController.isRunning = false;
                 else System.out.println("No algorithm running");
+            }else if(key.getCode() == KeyCode.ESCAPE){
+                try {
+                    this.isRunning = false;
+                    App.setRoot("menu");
+                } catch (IOException e) {
+                    Alert alert = new Alert(AlertType.ERROR);
+                    alert.setTitle("Chyba");
+                    alert.setContentText("Vypněte a znovu zapněte aplikaci, došlo k interní chybě");
+                    alert.show();
+                }
             }
       });
         
