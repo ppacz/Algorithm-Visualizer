@@ -120,7 +120,7 @@ public abstract class Algorithm {
     protected void updateTexts(){
         Platform.runLater(()->{
             this.reads.setText(String.valueOf(this.counter.getCount()));
-            this.time.setText(String.valueOf((System.currentTimeMillis()-this.startTime)/1000));
+            this.time.setText(String.valueOf((System.currentTimeMillis()-this.startTime)/1000) +" s");
         });
     }
 

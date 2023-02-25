@@ -1,7 +1,6 @@
 package visualizer;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Random;
@@ -76,7 +75,7 @@ public class SortingController implements Initializable {
                 else System.out.println("No algorithm running");
             }else if(key.getCode() == KeyCode.ESCAPE){
                 try {
-                    this.isRunning = false;
+                    SortingController.isRunning = false;
                     App.setRoot("menu");
                 } catch (IOException e) {
                     Alert alert = new Alert(AlertType.ERROR);
@@ -89,17 +88,13 @@ public class SortingController implements Initializable {
         
     }
 
-    /*
-     * Sorting will need to be done by untilizing tasks, workers and services
-     */
-
     @FXML
     protected void generate(){
         if(generated) this.clearStage();
         int amount = numberOfValues;
         int maxHeight = (int) sortingPane.getHeight()-10;
         int maxWidth = (int) (sortingPane.getWidth()/amount*.9);
-        double padding = (sortingPane.getWidth()/amount*.05)/2;
+        double padding = (sortingPane.getWidth()/amount*.1)/2;
         this.sortingPane.setSpacing(padding);
         for(int i=1; i<amount+1; i++){
             Rectangle rect = new Rectangle(maxWidth, (int) (i*(maxHeight-50)/amount)+50);
@@ -111,7 +106,6 @@ public class SortingController implements Initializable {
     }
 
     private void generateFromFile(int[] numbers){
-        System.out.println("is called");
         if(generated) this.clearStage();
         this.fromFile = true;
         this.multi = (int) (sortingPane.getHeight()-10)/100;
@@ -129,11 +123,10 @@ public class SortingController implements Initializable {
     }
     
     private void clearStage(){
-        ObservableList<Rectangle> list = (ObservableList)this.sortingPane.getChildren();
+        ObservableList<Rectangle> list = (ObservableList) this.sortingPane.getChildren();
         list.clear();
     }
 
-    // TODO findout how to send back message when done
     @FXML
     private void search(){
         Speed algoSpeed;
@@ -159,7 +152,6 @@ public class SortingController implements Initializable {
             thread.start();
         }
     }
-
 
     private Runnable getAlgorithm(Speed sleep, ObservableList<Rectangle> list){
         Algorithm algo = null;
@@ -187,7 +179,7 @@ public class SortingController implements Initializable {
 
     private void shuffle(){
         Random random = new Random();
-        ObservableList<Rectangle> list = (ObservableList)this.sortingPane.getChildren();
+        ObservableList<Rectangle> list = (ObservableList) this.sortingPane.getChildren();
         for(int i = 0; i < list.size() - 1; i++){
             int randomIndexToSwap = random.nextInt(list.size());
 			Double rect1 = list.get(randomIndexToSwap).getHeight();
@@ -214,13 +206,11 @@ public class SortingController implements Initializable {
             }
             this.generateFromFile(numbers);
             scanner.close();
-        } catch (FileNotFoundException e) {
+        } catch (Exception e) {
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Chyba");
             alert.setContentText("Při načítání souboru nastala chyba");
             e.printStackTrace();
         }
-
     }
-
 }

@@ -1,7 +1,6 @@
 package visualizer;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Random;
@@ -111,6 +110,7 @@ public class SearchingController implements Initializable {
         this.multi = 1;
         this.numberSearching.getItems().addAll(numbers);
         this.isSorted = true;
+        this.numberSearching.setValue("náhodná hodnota");
         if(!binary.isSelected()){
             this.isSorted = false;
             this.shuffle();
@@ -120,7 +120,6 @@ public class SearchingController implements Initializable {
     }
 
     private void generateFromFile(int[] numbers){
-        System.out.println("is called");
         if(generated) this.clearStage();
         this.fromFile = true;
         this.multi = (int) (searchingPane.getHeight()-10)/100;
@@ -139,6 +138,8 @@ public class SearchingController implements Initializable {
         numberOfValuesSlider.setValue(numbers.length);
         numberOfValuesText.setText("Počet hodnot: " + numbers.length);
         this.numberSearching.getItems().addAll(numberText);
+        
+        this.numberSearching.setValue("náhodná hodnota");
         this.isSorted = true;
         this.generated = true;
         for (int i = 0; i < numbers.length-1; i++){
@@ -179,7 +180,6 @@ public class SearchingController implements Initializable {
             thread.start();
         }
     }
-
 
     private Runnable getAlgorithm(Speed sleep, ObservableList<Rectangle> list, int value){
         if(linear.isSelected()){
@@ -240,12 +240,11 @@ public class SearchingController implements Initializable {
             }
             this.generateFromFile(numbers);
             scanner.close();
-        } catch (FileNotFoundException e) {
+        } catch (Exception e) {
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Chyba");
             alert.setContentText("Při načítání souboru nastala chyba");
             e.printStackTrace();
         }
-
     }
 }

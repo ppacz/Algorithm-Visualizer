@@ -20,6 +20,7 @@ public class BubbleSort extends Algorithm implements Runnable{
     public void run() {
         int arrLength = rectList.size();
         for(int i = 0; i<=arrLength-1; i++){
+            boolean moved = false;
             for(j = 0; j<arrLength-i-1; j++ ){
                 if(SortingController.isRunning == false) return;
                 Double rect1 = rectList.get(j).getHeight();
@@ -30,6 +31,7 @@ public class BubbleSort extends Algorithm implements Runnable{
                 } catch (InterruptedException e) {
                 }
                 if(rect1 > rect2){
+                    moved = true;
                     Platform.runLater(()->{
                         rectList.set(j, new Rectangle(rectList.get(0).getWidth(), rect2, Color.YELLOW));
                         rectList.set(j+1, new Rectangle(rectList.get(0).getWidth(), rect1, Color.YELLOW));
@@ -40,6 +42,13 @@ public class BubbleSort extends Algorithm implements Runnable{
                 } catch (InterruptedException e) {
                 }
                 colorElements(new int[] {j,j+1}, Color.BLACK);
+            }
+            if(moved){
+                this.counter.increseBy((arrLength-i-1)*2);
+                this.updateTexts();
+                SortingController.isRunning = false;
+                this.algorithmDuration(System.currentTimeMillis());
+                this.finishSortAlgorithm();
             }
             this.counter.increseBy((arrLength-i-1)*2);
             this.updateTexts();
