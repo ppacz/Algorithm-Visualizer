@@ -2,7 +2,6 @@ package visualizer.algorithms.sorting;
 
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import visualizer.SortingController;
 import visualizer.algorithms.Algorithm;
@@ -24,8 +23,8 @@ public class SelectionSort extends Algorithm implements Runnable {
             min = i;
             for(int j = i + 1; j <this.rectList.size(); j++){
                 if(SortingController.isRunning==false) return;
-                colorElements(i, this.rectList.size(), Color.BLACK);
-                colorElements(new int[] {j, min}, Color.YELLOW);
+                colorElements(i, this.rectList.size(), this.defaultColor);
+                colorElements(new int[] {j, min}, this.comparingColor);
                 if(rectList.get(j).getHeight()<rectList.get(min).getHeight()){
                     min = j;
                 }
@@ -41,7 +40,7 @@ public class SelectionSort extends Algorithm implements Runnable {
             });
             sleep(this.sleep/10);
             this.counter.increseBy((this.rectList.size()-i+1)*2);
-            colorElements(i, this.rectList.size(), Color.BLACK);
+            colorElements(i, this.rectList.size(), this.defaultColor);
             this.updateTexts();
         }
         SortingController.isRunning = false;

@@ -22,6 +22,32 @@ public abstract class Algorithm {
     protected int multi;
     protected Counter counter;
     protected Label reads, time;
+    protected Color defaultColor, searchedColor, foundColor, comparingColor, sortedColor;
+
+    public void setDefaultColor(Color defaultColor) {
+        this.defaultColor = defaultColor;
+    }
+
+
+    public void setSearchedColor(Color searchedColor) {
+        this.searchedColor = searchedColor;
+    }
+
+
+    public void setFoundColor(Color foundColor) {
+        this.foundColor = foundColor;
+    }
+
+
+    public void setComparingColor(Color comparingColor) {
+        this.comparingColor = comparingColor;
+    }
+
+
+    public void setSortedColor(Color sortedColor) {
+        this.sortedColor = sortedColor;
+    }
+
 
     public Algorithm(Speed sleep, ObservableList<Rectangle> rectList, boolean fromFile, int multi) {
 
@@ -109,7 +135,7 @@ public abstract class Algorithm {
     private void finishColoring(){
         for (Rectangle rectangle : rectList) {
             sleep(5);
-            rectangle.setFill(Color.GREEN);
+            rectangle.setFill(this.sortedColor);
         }
     }
 

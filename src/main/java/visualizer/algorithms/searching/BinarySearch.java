@@ -25,23 +25,23 @@ public class BinarySearch extends Algorithm implements Runnable {
         int low = 0;
         while(low<=high && SearchingController.isRunning){
             int middle = low + (high-low)/2;
-            this.colorElements(new int[] {middle}, Color.ORANGE);
+            this.colorElements(new int[] {middle}, this.comparingColor);
             try {
                 Thread.sleep(this.sleep);
             } catch (InterruptedException e) {
             }
             int testingValue = (int) rectList.get(middle).getHeight();
             if(testingValue < this.value){
-                this.colorElements(low, middle+1, Color.RED);
+                this.colorElements(low, middle+1, this.searchedColor);
                 low = middle + 1;
             }
             else if(testingValue > this.value){
-                this.colorElements(middle, high+1, Color.RED);
+                this.colorElements(middle, high+1, this.searchedColor);
                 high = middle-1;
             }
             else{
-                this.colorElements(low, high, Color.RED);
-                this.colorElements(new int[] {middle}, Color.GREEN);
+                this.colorElements(low, high, this.searchedColor);
+                this.colorElements(new int[] {middle}, this.foundColor);
                 SearchingController.isRunning = false;
                 this.found = true;
                 this.showAlert();
@@ -49,7 +49,7 @@ public class BinarySearch extends Algorithm implements Runnable {
             }
         }
         SearchingController.isRunning = false;
-        this.colorElements(low, high, Color.RED);
+        this.colorElements(low, high, this.searchedColor);
         this.showAlert();
     }
 

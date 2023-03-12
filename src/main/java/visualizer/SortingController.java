@@ -13,6 +13,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Slider;
@@ -50,6 +51,9 @@ public class SortingController implements Initializable {
     
     @FXML
     private RadioButton bubble, insertion, selection, merge, quick;
+
+    @FXML
+    private ColorPicker defaultColor, sortedColor, comparingColor;
     
     private int numberOfValues;
     private boolean generated = false;
@@ -97,12 +101,13 @@ public class SortingController implements Initializable {
         double padding = (sortingPane.getWidth()/amount*.1)/2;
         this.sortingPane.setSpacing(padding);
         for(int i=1; i<amount+1; i++){
-            Rectangle rect = new Rectangle(maxWidth, (int) (i*(maxHeight-50)/amount)+50);
+            Rectangle rect = new Rectangle(maxWidth, (int) (i*(maxHeight-50)/amount)+50, this.defaultColor.getValue());
             this.sortingPane.getChildren().add(rect);
         }
         this.shuffle();
         this.multi = 1;
         generated = true;
+        this.fromFile = false;
     }
 
     private void generateFromFile(int[] numbers){
@@ -114,7 +119,7 @@ public class SortingController implements Initializable {
         this.sortingPane.setSpacing(padding);
         for(int i=1; i<numbers.length+1; i++){
             int height = (int) numbers[i-1]*this.multi;
-            Rectangle rect = new Rectangle(maxWidth, height);
+            Rectangle rect = new Rectangle(maxWidth, height, this.defaultColor.getValue());
             this.sortingPane.getChildren().add(rect);
             System.out.println("is called");
         }
@@ -145,7 +150,6 @@ public class SortingController implements Initializable {
             }
         Runnable search = this.getAlgorithm(algoSpeed, (ObservableList) this.sortingPane.getChildren());
         if(search!=null){
-            
             SortingController.isRunning = true;
             Thread thread = new Thread(search);
             thread.setName("Algorithm thread");
@@ -168,6 +172,10 @@ public class SortingController implements Initializable {
         }
         if(algo!=null){
             algo.addLabels(this.algorithmTime, this.numberOfReads);
+            algo.setComparingColor(this.comparingColor.getValue());
+            algo.setDefaultColor(this.defaultColor.getValue());
+            algo.setSortedColor(this.sortedColor.getValue());
+
             return (Runnable) algo;
         }
         Alert alert = new Alert(AlertType.WARNING);
@@ -184,8 +192,8 @@ public class SortingController implements Initializable {
             int randomIndexToSwap = random.nextInt(list.size());
 			Double rect1 = list.get(randomIndexToSwap).getHeight();
             Double rect2 = list.get(i).getHeight();
-			list.set(randomIndexToSwap, new Rectangle(list.get(0).getWidth(), rect2));
-			list.set(i, new Rectangle(list.get(0).getWidth(), rect1));
+			list.set(randomIndexToSwap, new Rectangle(list.get(0).getWidth(), rect2, this.defaultColor.getValue()));
+			list.set(i, new Rectangle(list.get(0).getWidth(), rect1, this.defaultColor.getValue()));
         }
     }
 
@@ -207,6 +215,7 @@ public class SortingController implements Initializable {
             this.generateFromFile(numbers);
             scanner.close();
         } catch (Exception e) {
+            this.fromFile = false;
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Chyba");
             alert.setContentText("Při načítání souboru nastala chyba");

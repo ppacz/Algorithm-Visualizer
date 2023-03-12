@@ -15,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Slider;
@@ -26,6 +27,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import visualizer.algorithms.Algorithm;
 import visualizer.algorithms.Speed;
 import visualizer.algorithms.searching.BinarySearch;
 import visualizer.algorithms.searching.LinearSearch;
@@ -53,6 +55,9 @@ public class SearchingController implements Initializable {
     @FXML
     private ChoiceBox<String> numberSearching;
 
+    @FXML 
+    private ColorPicker defaultColor, searchedColor, comparingColor, foundColor;
+
     private boolean isSorted = false;
     private int numberOfValues;
     private boolean generated = false;
@@ -77,7 +82,7 @@ public class SearchingController implements Initializable {
                     else System.out.println("No algorithm running");
                 }else if(key.getCode() == KeyCode.ESCAPE){
                     try {
-                        this.isRunning = false;
+                        SearchingController.isRunning = false;
                         App.setRoot("menu");
                     } catch (IOException e) {
                         Alert alert = new Alert(AlertType.ERROR);
@@ -103,7 +108,7 @@ public class SearchingController implements Initializable {
         numbers[0] = "náhodná hodnota";
         for(int i=1; i<amount+1; i++){
             int height = (int) (i*(maxHeight-50)/amount)+50;
-            Rectangle rect = new Rectangle(maxWidth, height);
+            Rectangle rect = new Rectangle(maxWidth, height, this.defaultColor.getValue());
             this.searchingPane.getChildren().add(rect);
             numbers[i] = Integer.toString(height);
         }
@@ -131,7 +136,7 @@ public class SearchingController implements Initializable {
         numberText[0] = "náhodná hodnota";
         for(int i=1; i<numbers.length+1; i++){
             int height = (int) numbers[i-1]*this.multi;
-            Rectangle rect = new Rectangle(maxWidth, height);
+            Rectangle rect = new Rectangle(maxWidth, height, this.defaultColor.getValue());
             this.searchingPane.getChildren().add(rect);
             numberText[i] = Integer.toString(height/this.multi);
         }
@@ -182,17 +187,26 @@ public class SearchingController implements Initializable {
     }
 
     private Runnable getAlgorithm(Speed sleep, ObservableList<Rectangle> list, int value){
+        Algorithm algo = null;
         if(linear.isSelected()){
-            return new LinearSearch(sleep, list, value, this.fromFile, this.multi);
+            algo = new LinearSearch(sleep, list, value, this.fromFile, this.multi);
         }else if(binary.isSelected()){
             if(this.isSorted){
-                return new BinarySearch(sleep, list, value, this.fromFile, this.multi);
+                algo = new BinarySearch(sleep, list, value, this.fromFile, this.multi);
+            }else{
+                Alert alert = new Alert(AlertType.WARNING);
+                alert.setHeaderText("Nastala chyba");
+                alert.setContentText("Vygenerujte čísla znovu. Čísla pro binární vyhledávání musí být seřazené.");
+                alert.show();    
+                return null;
             }
-            Alert alert = new Alert(AlertType.WARNING);
-            alert.setHeaderText("Nastala chyba");
-            alert.setContentText("Vygenerujte čísla znovu. Čísla pro binární vyhledávání musí být seřazené.");
-            alert.show();    
-            return null;
+        }
+        if(algo != null){
+            algo.setComparingColor(this.comparingColor.getValue());
+            algo.setDefaultColor(this.defaultColor.getValue());
+            algo.setFoundColor(this.foundColor.getValue());
+            algo.setSearchedColor(this.searchedColor.getValue());
+            return (Runnable) algo;
         }
         Alert alert = new Alert(AlertType.WARNING);
         alert.setHeaderText("Nastala chyba");
@@ -208,8 +222,8 @@ public class SearchingController implements Initializable {
             int randomIndexToSwap = random.nextInt(list.size());
 			Double rect1 = list.get(randomIndexToSwap).getHeight();
             Double rect2 = list.get(i).getHeight();
-			list.set(randomIndexToSwap, new Rectangle(list.get(0).getWidth(), rect2));
-			list.set(i, new Rectangle(list.get(0).getWidth(), rect1));
+			list.set(randomIndexToSwap, new Rectangle(list.get(0).getWidth(), rect2, this.defaultColor.getValue()));
+			list.set(i, new Rectangle(list.get(0).getWidth(), rect1, this.defaultColor.getValue()));
         }
     }
 
@@ -218,7 +232,7 @@ public class SearchingController implements Initializable {
         if("náhodná hodnota" == search){
             Random r = new Random();
             this.numToSearch = r.nextInt(1000);
-        }else{
+        }else if (search != null && search.length() > 0){
             this.numToSearch = Integer.parseInt(search) * this.multi;
         }
     }

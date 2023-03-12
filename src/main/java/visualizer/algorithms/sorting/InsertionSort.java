@@ -28,15 +28,15 @@ public class InsertionSort extends Algorithm implements Runnable {
             while(j >= 0 && this.rectList.get(j).getHeight() > temp) {
                 if(SortingController.isRunning==false) return;
                 this.counter.increseBy(2);;
-                colorElements(new int[] {j,i}, Color.YELLOW);
+                colorElements(new int[] {j,i}, this.comparingColor);
                 this.sleep(this.sleep);
-                colorElements(new int[] {j}, Color.YELLOW);
+                colorElements(new int[] {j}, this.comparingColor);
                 Platform.runLater(()->{
-                    this.rectList.set(j + 1,new Rectangle(this.width,this.rectList.get(j).getHeight(), Color.YELLOW));
+                    this.rectList.set(j + 1,new Rectangle(this.width,this.rectList.get(j).getHeight(), this.comparingColor));
                 });
                 this.sleep(this.sleep);
                 j--;
-                colorElements(0, this.rectList.size(), Color.BLACK);
+                colorElements(0, this.rectList.size(), this.defaultColor);
             }
             this.updateTexts();
             Platform.runLater(()->{

@@ -78,7 +78,7 @@
                   <Color red="1.0" green="0.7666666507720947" />
                </value>
             </ColorPicker>
-            <ColorPicker fx:id="basicColor" layoutX="175.0" layoutY="429.0" maxWidth="110.0" styleClass="params" AnchorPane.leftAnchor="175.0" AnchorPane.topAnchor="190.0">
+            <ColorPicker fx:id="defaultColor" layoutX="175.0" layoutY="429.0" maxWidth="110.0" styleClass="params" AnchorPane.leftAnchor="175.0" AnchorPane.topAnchor="190.0">
                <value>
                   <Color />
                </value>

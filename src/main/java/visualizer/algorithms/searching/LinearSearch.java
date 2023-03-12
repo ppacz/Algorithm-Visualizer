@@ -3,7 +3,6 @@ package visualizer.algorithms.searching;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import visualizer.SearchingController;
 import visualizer.algorithms.Algorithm;
@@ -23,13 +22,13 @@ public class LinearSearch extends Algorithm implements Runnable{
         for (Rectangle rectangle : this.rectList) {
             if(SearchingController.isRunning == false) return;
             if(rectangle.getHeight()==value){
-                rectangle.setFill(Color.GREEN);
+                rectangle.setFill(this.foundColor);
                 this.found = true;
                 SearchingController.isRunning = false;
                 showAlert();
                 return;
             }else{
-                rectangle.setFill(Color.RED);
+                rectangle.setFill(this.searchedColor);
             }
             try {
                 Thread.sleep(this.sleep);
