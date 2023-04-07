@@ -3,7 +3,6 @@ package visualizer.algorithms.searching;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import visualizer.SearchingController;
 import visualizer.algorithms.Algorithm;
@@ -27,7 +26,7 @@ public class BinarySearch extends Algorithm implements Runnable {
             int middle = low + (high-low)/2;
             this.colorElements(new int[] {middle}, this.comparingColor);
             try {
-                Thread.sleep(this.sleep);
+                Thread.sleep(this.sleep*2);
             } catch (InterruptedException e) {
             }
             int testingValue = (int) rectList.get(middle).getHeight();
@@ -40,10 +39,11 @@ public class BinarySearch extends Algorithm implements Runnable {
                 high = middle-1;
             }
             else{
-                this.colorElements(low, high, this.searchedColor);
+                this.colorElements(low, this.rectList.size(), this.searchedColor);
                 this.colorElements(new int[] {middle}, this.foundColor);
                 SearchingController.isRunning = false;
                 this.found = true;
+                
                 this.showAlert();
                 return;
             }

@@ -2,7 +2,6 @@ package visualizer.algorithms.sorting;
 
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import visualizer.SortingController;
 import visualizer.algorithms.Algorithm;
@@ -20,7 +19,6 @@ public class InsertionSort extends Algorithm implements Runnable {
     @Override
     public void run() {
         SortingController.isRunning = true;
-		//TODO make compare coloring
         for(int i = 1; i < this.rectList.size(); i++) {
             int temp = (int) this.rectList.get(i).getHeight();
             j = i - 1;

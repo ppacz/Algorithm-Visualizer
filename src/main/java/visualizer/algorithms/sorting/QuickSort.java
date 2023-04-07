@@ -52,7 +52,7 @@ public class QuickSort extends Algorithm implements Runnable{
                 i++;
                 Platform.runLater(()->{
                     double temp = this.rectList.get(i).getHeight();
-                    this.rectList.set(i, new Rectangle(this.width, this.rectList.get(j).getHeight()));
+                    this.rectList.set(i, new Rectangle(this.width, this.rectList.get(j).getHeight(), this.defaultColor));
                     this.rectList.set(j, new Rectangle(this.width, temp, this.comparingColor));
                 });
             }
@@ -65,8 +65,8 @@ public class QuickSort extends Algorithm implements Runnable{
 
         Platform.runLater(()->{
             double temp = this.rectList.get(i).getHeight();
-            this.rectList.set(i, new Rectangle(this.width, pivot));
-            this.rectList.set(end, new Rectangle(this.width, temp));
+            this.rectList.set(i, new Rectangle(this.width, pivot, this.defaultColor));
+            this.rectList.set(end, new Rectangle(this.width, temp, this.defaultColor));
         });
         this.updateTexts();
         return i;

@@ -73,7 +73,7 @@ public class MergeSort extends Algorithm implements Runnable{
 			this.colorElements(new int[] {start + this.rIndex + leftSize}, this.comparingColor);
 			if(leftArray[this.lIndex] < rightArray[this.rIndex]) {
 				Platform.runLater(() -> {
-				this.rectList.set(this.index+start, new Rectangle(this.width, leftArray[this.lIndex]));
+				this.rectList.set(this.index+start, new Rectangle(this.width, leftArray[this.lIndex], this.defaultColor));
 				});
 				original[index] = leftArray[this.lIndex];
 				this.sleep(this.sleep);
@@ -84,7 +84,7 @@ public class MergeSort extends Algorithm implements Runnable{
 			}
 			else {
 				Platform.runLater(() -> {
-				this.rectList.set(this.index+start, new Rectangle(this.width, rightArray[this.rIndex]));
+				this.rectList.set(this.index+start, new Rectangle(this.width, rightArray[this.rIndex], this.defaultColor));
 				});
 				original[index] = rightArray[this.rIndex];
 				this.sleep(this.sleep);
@@ -100,7 +100,7 @@ public class MergeSort extends Algorithm implements Runnable{
 		while(this.lIndex < leftSize) {
 			if(SortingController.isRunning==false) return;
 			Platform.runLater(() -> {
-			this.rectList.set(this.index+start, new Rectangle(this.width, leftArray[this.lIndex]));
+			this.rectList.set(this.index+start, new Rectangle(this.width, leftArray[this.lIndex], this.defaultColor));
 			});
 			original[index] = leftArray[this.lIndex];
 			this.sleep(this.sleep);
@@ -111,7 +111,7 @@ public class MergeSort extends Algorithm implements Runnable{
 		while(this.rIndex < rightSize) {
 			if(SortingController.isRunning==false) return;
 			Platform.runLater(() -> {
-				this.rectList.set(this.index+start, new Rectangle(this.width, rightArray[this.rIndex]));
+				this.rectList.set(this.index+start, new Rectangle(this.width, rightArray[this.rIndex], this.defaultColor));
 			});
 			original[index] = rightArray[this.rIndex];
 			this.sleep(this.sleep);

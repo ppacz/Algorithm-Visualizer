@@ -20,7 +20,7 @@
          <children>
             <AnchorPane prefHeight="120.0" styleClass="Pane" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Slider fx:id="numberOfValuesSlider" blockIncrement="5.0" cache="true" layoutX="30.0" layoutY="78.0" majorTickUnit="10.0" min="2.0" minorTickCount="2" prefHeight="50.0" prefWidth="498.0" value="20.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="400.0" AnchorPane.topAnchor="60.0" />
+                  <Slider fx:id="numberOfValuesSlider" blockIncrement="5.0" cache="true" layoutX="30.0" layoutY="78.0" majorTickUnit="10.0" max="200.0" min="2.0" minorTickCount="2" prefHeight="50.0" prefWidth="498.0" value="20.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="400.0" AnchorPane.topAnchor="60.0" />
                   <Label fx:id="numberOfValuesText" alignment="CENTER" prefWidth="252.0" style="-fx-font-family: verdana;" styleClass="text" text="Počet hodnot: XXX" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="400.0" AnchorPane.topAnchor="0.0">
                      <font>
                         <Font name="Verdana" size="27.0" />

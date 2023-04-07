@@ -249,16 +249,19 @@ public class SearchingController implements Initializable {
             String text = scanner.nextLine();
             String[] numberText = text.split(",");
             int[] numbers = new int[numberText.length];
-            for(int i = 0; i<numberText.length;i++){
+            for(int i = 0; i < numberText.length;i++){
                 numbers[i] = Integer.parseInt(numberText[i]);
+                if(numbers[i] > 100) throw new Exception("pouze hodnoty do 100");
             }
             this.generateFromFile(numbers);
             scanner.close();
+            return;
         } catch (Exception e) {
+            this.fromFile = false;
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Chyba");
-            alert.setContentText("Při načítání souboru nastala chyba");
-            e.printStackTrace();
+            alert.setContentText("Při načítání souboru nastala chyba\n hodnoty nesmí přesahovat 100");
+            alert.show();
         }
     }
 }

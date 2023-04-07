@@ -6,7 +6,9 @@ import java.net.URL;
 import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
@@ -111,7 +113,7 @@ public class SortingController implements Initializable {
     }
 
     private void generateFromFile(int[] numbers){
-        if(generated) this.clearStage();
+        if(this.generated) this.clearStage();
         this.fromFile = true;
         this.multi = (int) (sortingPane.getHeight()-10)/100;
         int maxWidth = (int) (sortingPane.getWidth()/(numbers.length)*.9);
@@ -125,6 +127,7 @@ public class SortingController implements Initializable {
         }
         numberOfValuesSlider.setValue(numbers.length);
         numberOfValuesText.setText("Počet hodnot: " + numbers.length);
+        this.generated = true;
     }
     
     private void clearStage(){
@@ -209,17 +212,20 @@ public class SortingController implements Initializable {
             String text = scanner.nextLine();
             String[] numberText = text.split(",");
             int[] numbers = new int[numberText.length];
-            for(int i = 0; i<numberText.length;i++){
+            for(int i = 0; i < numberText.length;i++){
                 numbers[i] = Integer.parseInt(numberText[i]);
+                if(numbers[i] > 100) throw new Exception("pouze hodnoty do 100");
             }
             this.generateFromFile(numbers);
             scanner.close();
+            return;
         } catch (Exception e) {
             this.fromFile = false;
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Chyba");
-            alert.setContentText("Při načítání souboru nastala chyba");
-            e.printStackTrace();
+            alert.setContentText("Při načítání souboru nastala chyba\n hodnoty nesmí přesahovat 100");
+            alert.show();
         }
     }
+
 }

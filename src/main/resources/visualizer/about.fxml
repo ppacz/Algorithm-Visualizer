@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="mainPane" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: lightblue;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visualizer.AboutController">
+   <children>
+      <Label alignment="CENTER" layoutX="182.0" layoutY="52.0" prefHeight="80.0" prefWidth="852.0" styleClass="paramsTitle" stylesheets="@style.css" text="Tato aplikace byla vytvořena Tomášem Lipenským r. 2023 jakožto maturitní práce." textAlignment="CENTER" textOverrun="LEADING_WORD_ELLIPSIS" wrapText="true" AnchorPane.rightAnchor="246.0" />
+      <Label alignment="CENTER" layoutX="436.0" layoutY="194.0" prefHeight="20.0" prefWidth="345.0" styleClass="paramsTitle" stylesheets="@style.css" text="Hlavní informace:" textOverrun="LEADING_WORD_ELLIPSIS" wrapText="true" AnchorPane.rightAnchor="499.0" />
+      <Label layoutX="470.0" layoutY="283.0" styleClass="paramsLabel" stylesheets="@style.css" text="Stop algoritmu = klávesa R" AnchorPane.rightAnchor="533.0" />
+      <Label layoutX="400.0" layoutY="360.0" styleClass="paramsLabel" stylesheets="@style.css" text="Vrácení do hlavního menu = klávesa ESC" AnchorPane.rightAnchor="464.0" />
+      <Button layoutX="553.0" layoutY="552.0" mnemonicParsing="false" onAction="#switchToMenu" style="-fx-background-color: lightblue; -fx-font-family: Vendara; -fx-border-color: black; -fx-border-width: 3; -fx-font-weight: bold; -fx-font-size: 30;" stylesheets="@style.css" text="Zpět" />
+      <Label alignment="CENTER" layoutX="349.0" layoutY="398.0" prefHeight="120.0" prefWidth="567.0" styleClass="paramsLabel" stylesheets="@style.css" text="Import ze souborů pouze pro *.txt kde jsou hodnoty odděleny čárkou (,) a jsou menší než 100" textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS" wrapText="true" />
+   </children>
+</AnchorPane>

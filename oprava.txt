@@ -1,0 +1,1 @@
+import textu když je špatnej format/obsahuje text

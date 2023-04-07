@@ -14,7 +14,7 @@ import java.io.IOException;
 public class App extends Application {
 
     private final double WIDTH = 1280;
-    private final double HEIGHT = 760;
+    private final double HEIGHT = 800;
     private static Scene scene;
 
     @Override
