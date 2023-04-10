@@ -53,7 +53,7 @@ public abstract class Algorithm {
 
         switch (sleep) {
             case Slow:
-                this.sleep = 1000;
+                this.sleep = 500;
                 break;
             case Normal:
                 this.sleep = 250;
@@ -66,7 +66,7 @@ public abstract class Algorithm {
         this.counter = new Counter();
         this.rectList = rectList;
         this.width = this.rectList.get(0).getWidth();
-        this.fromFile = true;
+        this.fromFile = fromFile;
         this.multi = multi;
     }
 
