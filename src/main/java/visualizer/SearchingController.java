@@ -35,7 +35,7 @@ import visualizer.algorithms.searching.LinearSearch;
 public class SearchingController implements Initializable {
 
     @FXML
-    private Label numberOfValuesText;
+    private Label numberOfValuesText, searchTitle, placeholder;
 
     @FXML
     private HBox searchingPane;
@@ -121,6 +121,9 @@ public class SearchingController implements Initializable {
             this.shuffle();
         }
         this.fromFile = false;
+        this.numberSearching.setVisible(true);
+        this.searchTitle.setVisible(true);
+        this.placeholder.setVisible(false);
         generated = true;
     }
 
@@ -147,6 +150,9 @@ public class SearchingController implements Initializable {
         this.numberSearching.setValue("náhodná hodnota");
         this.isSorted = true;
         this.generated = true;
+        this.numberSearching.setVisible(true);
+        this.searchTitle.setVisible(true);
+        this.placeholder.setVisible(false);
         for (int i = 0; i < numbers.length-1; i++){
             if(numbers[i]>numbers[i+1]){
                 this.isSorted = false;
@@ -178,7 +184,10 @@ public class SearchingController implements Initializable {
             }
         Runnable search = this.getAlgorithm(algoSpeed, (ObservableList) this.searchingPane.getChildren(), this.numToSearch);
         if(search!=null){
-            
+            this.numberSearching.setVisible(false);
+            this.searchTitle.setVisible(false);
+            this.placeholder.setText("Nyní se hledá číslo " + this.numToSearch);
+            this.placeholder.setVisible(true);
             SearchingController.isRunning = true;
             Thread thread = new Thread(search);
             thread.setName("Algorithm thread");

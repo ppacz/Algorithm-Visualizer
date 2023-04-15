@@ -28,10 +28,7 @@ public class SelectionSort extends Algorithm implements Runnable {
                 if(rectList.get(j).getHeight()<rectList.get(min).getHeight()){
                     min = j;
                 }
-                try {
-                    Thread.sleep(this.sleep/10*9);
-                } catch (InterruptedException e) {
-                }
+                sleep(this.sleep/10*9);
             }
             Platform.runLater(()->{
                 int temp = (int) rectList.get(min).getHeight();

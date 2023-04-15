@@ -28,7 +28,6 @@ public class InsertionSort extends Algorithm implements Runnable {
                 this.counter.increseBy(2);;
                 colorElements(new int[] {j,i}, this.comparingColor);
                 this.sleep(this.sleep);
-                colorElements(new int[] {j}, this.comparingColor);
                 Platform.runLater(()->{
                     this.rectList.set(j + 1,new Rectangle(this.width,this.rectList.get(j).getHeight(), this.comparingColor));
                 });
@@ -38,7 +37,7 @@ public class InsertionSort extends Algorithm implements Runnable {
             }
             this.updateTexts();
             Platform.runLater(()->{
-                this.rectList.set(j + 1,new Rectangle(this.width,temp));
+                this.rectList.set(j + 1,new Rectangle(this.width,temp, this.defaultColor));
             });
             this.sleep(this.sleep);
         }

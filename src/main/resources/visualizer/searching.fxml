@@ -19,7 +19,7 @@
             <AnchorPane prefHeight="120.0" styleClass="Pane" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="0.0">
                <children>
                   <Slider fx:id="numberOfValuesSlider" blockIncrement="5.0" cache="true" layoutX="30.0" layoutY="78.0" majorTickUnit="10.0" min="2.0" minorTickCount="2" prefHeight="50.0" prefWidth="498.0" value="20.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="400.0" AnchorPane.topAnchor="60.0" />
-                  <Label fx:id="numberOfValuesText" alignment="CENTER" prefWidth="252.0" style="-fx-font-family: verdana;" styleClass="text" text="Počet hodnot: XXX" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="400.0" AnchorPane.topAnchor="0.0">
+                  <Label fx:id="numberOfValuesText" alignment="CENTER" prefWidth="252.0" style="-fx-font-family: verdana;" styleClass="text" text="Počet hodnot" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="400.0" AnchorPane.topAnchor="0.0">
                      <font>
                         <Font name="Verdana" size="27.0" />
                      </font>
@@ -83,8 +83,9 @@
                   <Color />
                </value>
             </ColorPicker>
-            <ChoiceBox fx:id="numberSearching" layoutX="17.0" layoutY="403.0" maxHeight="50.0" minHeight="50.0" prefHeight="50.0" prefWidth="150.0" styleClass="params" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" />
-            <Label alignment="CENTER" layoutX="4.0" layoutY="514.0" prefHeight="139.0" prefWidth="296.0" styleClass="paramsTitle" text="Výběr hledaného čísla" textAlignment="CENTER" textOverrun="CLIP" wrapText="true" AnchorPane.bottomAnchor="122.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="2.0" />
+            <ChoiceBox fx:id="numberSearching" layoutX="17.0" layoutY="403.0" maxHeight="50.0" minHeight="50.0" prefHeight="50.0" prefWidth="150.0" styleClass="params" visible="false" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" />
+            <Label fx:id="searchTitle" alignment="CENTER" layoutX="4.0" layoutY="514.0" prefHeight="139.0" prefWidth="296.0" styleClass="paramsTitle" text="Výběr hledaného čísla" textAlignment="CENTER" textOverrun="CLIP" visible="false" wrapText="true" AnchorPane.bottomAnchor="122.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="2.0" />
+            <Label fx:id="placeholder" alignment="CENTER" layoutX="14.0" layoutY="524.0" prefHeight="139.0" prefWidth="296.0" styleClass="paramsTitle" text="Výběr hledaného čísla" textAlignment="CENTER" textOverrun="CLIP" visible="false" wrapText="true" />
          </children>
       </AnchorPane>
       <HBox fx:id="searchingPane" alignment="BOTTOM_CENTER" layoutX="353.0" layoutY="206.0" prefHeight="350.0" prefWidth="826.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="120.0" />

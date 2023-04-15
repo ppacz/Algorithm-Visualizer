@@ -25,10 +25,7 @@ public class BubbleSort extends Algorithm implements Runnable{
                 Double rect1 = rectList.get(j).getHeight();
                 Double rect2 = rectList.get(j+1).getHeight();
                 colorElements(new int[] {j, j+1}, this.comparingColor);
-                try {
-                    Thread.sleep(this.sleep/2);
-                } catch (InterruptedException e) {
-                }
+                sleep(this.sleep / 2);
                 if(rect1 > rect2){
                     moved = true;
                     Platform.runLater(()->{
@@ -36,10 +33,7 @@ public class BubbleSort extends Algorithm implements Runnable{
                         rectList.set(j+1, new Rectangle(rectList.get(0).getWidth(), rect1, this.comparingColor));
                     });
                 }
-                try {
-                    Thread.sleep(this.sleep/2);
-                } catch (InterruptedException e) {
-                }
+                sleep(this.sleep / 2);
                 colorElements(new int[] {j,j+1}, this.defaultColor);
             }
             if(!moved){

@@ -30,10 +30,7 @@ public class LinearSearch extends Algorithm implements Runnable{
             }else{
                 rectangle.setFill(this.searchedColor);
             }
-            try {
-                Thread.sleep(this.sleep);
-            } catch (InterruptedException e) {
-            }
+            sleep(this.sleep);
         }
         showAlert();
         SearchingController.isRunning = false;

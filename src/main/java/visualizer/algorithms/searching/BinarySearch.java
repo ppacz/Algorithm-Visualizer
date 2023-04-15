@@ -25,10 +25,7 @@ public class BinarySearch extends Algorithm implements Runnable {
         while(low<=high && SearchingController.isRunning){
             int middle = low + (high-low)/2;
             this.colorElements(new int[] {middle}, this.comparingColor);
-            try {
-                Thread.sleep(this.sleep*2);
-            } catch (InterruptedException e) {
-            }
+            sleep(sleep);
             int testingValue = (int) rectList.get(middle).getHeight();
             if(testingValue < this.value){
                 this.colorElements(low, middle+1, this.searchedColor);

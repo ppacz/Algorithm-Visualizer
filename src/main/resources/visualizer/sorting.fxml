@@ -21,7 +21,7 @@
             <AnchorPane prefHeight="120.0" styleClass="Pane" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="0.0">
                <children>
                   <Slider fx:id="numberOfValuesSlider" blockIncrement="5.0" cache="true" layoutX="30.0" layoutY="78.0" majorTickUnit="10.0" max="200.0" min="2.0" minorTickCount="2" prefHeight="50.0" prefWidth="498.0" value="20.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="400.0" AnchorPane.topAnchor="60.0" />
-                  <Label fx:id="numberOfValuesText" alignment="CENTER" prefWidth="252.0" style="-fx-font-family: verdana;" styleClass="text" text="Počet hodnot: XXX" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="400.0" AnchorPane.topAnchor="0.0">
+                  <Label fx:id="numberOfValuesText" alignment="CENTER" prefWidth="252.0" style="-fx-font-family: verdana;" styleClass="text" text="Počet hodnot" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="400.0" AnchorPane.topAnchor="0.0">
                      <font>
                         <Font name="Verdana" size="27.0" />
                      </font>
@@ -94,8 +94,8 @@
                <children>
                   <Label alignment="CENTER" prefHeight="130.0" prefWidth="161.0" text="Čas" />
                   <Label alignment="CENTER" prefHeight="246.0" prefWidth="421.0" text="Počet přístupů" textAlignment="CENTER" textOverrun="CLIP" wrapText="true" GridPane.columnIndex="1" />
-                  <Label fx:id="algorithmTime" alignment="CENTER" prefHeight="234.0" prefWidth="423.0" text="xx.xx sec" GridPane.rowIndex="1" />
-                  <Label fx:id="numberOfReads" alignment="CENTER" prefHeight="97.0" prefWidth="266.0" text="xxxx" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label fx:id="algorithmTime" alignment="CENTER" prefHeight="234.0" prefWidth="423.0" GridPane.rowIndex="1" />
+                  <Label fx:id="numberOfReads" alignment="CENTER" prefHeight="97.0" prefWidth="266.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
             </GridPane>
          </children>
